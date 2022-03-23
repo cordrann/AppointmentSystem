@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="View.CustomerMenuController"
+            prefHeight="577.0" prefWidth="900.0">
+    <children>
+        <Label layoutX="14.0" layoutY="14.0" prefHeight="66.0" prefWidth="250.0" text=" Customer">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Label>
+        <VBox layoutX="14.0" layoutY="75.0" prefHeight="251.0" prefWidth="100.0" spacing="20.0">
+            <children>
+                <Label text="Customer ID" />
+                <Label text="Customer Name" />
+                <Label text="Address" />
+                <Label text="Postal Code" />
+                <Label text="Phone Number" />
+            </children>
+        </VBox>
+        <VBox layoutX="106.0" layoutY="75.0" prefHeight="191.0" prefWidth="125.0" spacing="12.0">
+            <children>
+                <TextField fx:id="cidField" disable="true" editable="false" />
+                <TextField fx:id="customerNameField" />
+                <TextField fx:id="addressField" promptText="123 ABC Street, City" />
+                <TextField fx:id="postalField" />
+                <TextField fx:id="phoneField" />
+            </children>
+        </VBox>
+        <ComboBox fx:id="countryBox" layoutX="81.0" layoutY="268.0" prefWidth="150.0" promptText="Country" />
+        <ComboBox fx:id="stateBox" layoutX="81.0" layoutY="314.0" prefWidth="150.0" promptText="State/Province" />
+        <TableView layoutX="246.0" layoutY="63.0" prefHeight="334.0" prefWidth="562.0">
+            <columns>
+                <TableColumn prefWidth="39.0" text="ID" />
+                <TableColumn prefWidth="98.0" text="Name" />
+                <TableColumn prefWidth="102.0" text="Address" />
+                <TableColumn prefWidth="74.0" text="Postal Code" />
+                <TableColumn prefWidth="83.0" text="Phone" />
+                <TableColumn prefWidth="52.0" text="Country" />
+                <TableColumn prefWidth="113.0" text="State/Province" />
+            </columns>
+        </TableView>
+        <Button layoutX="172.0" layoutY="460.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="Add" />
+        <Button layoutX="645.0" layoutY="460.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="125.0" text="Back" />
+        <Button layoutX="332.0" layoutY="460.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="Update" />
+        <Button layoutX="482.0" layoutY="460.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="125.0" text="Delete" />
+    </children>
+
+</AnchorPane>

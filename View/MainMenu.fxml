@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="View.MainMenuController"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <children>
+        <ButtonBar layoutX="63.0" layoutY="180.0" prefHeight="40.0" prefWidth="200.0">
+            <buttons>
+                <Button fx:id="addAppointmentButton" mnemonicParsing="false" text="Menu" />
+                <Button fx:id="calendarButton" mnemonicParsing="false" text="View" />
+            </buttons>
+        </ButtonBar>
+        <Label layoutX="84.0" layoutY="46.0" text="Customers">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Label>
+        <Label layoutX="84.0" layoutY="145.0" text="Appointments">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Label>
+        <Button layoutX="103.0" layoutY="99.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" text="Menu" />
+    </children>
+
+</AnchorPane>
