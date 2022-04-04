@@ -1,4 +1,4 @@
-package View;
+package Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -77,7 +77,7 @@ public class CustomerMenuController {
      */
     @FXML private void backButtonClick(ActionEvent event) throws IOException {
         Parent customerMenuParent;
-        customerMenuParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MainMenu.FXML")));
+        customerMenuParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/MainMenu.FXML")));
         Scene customerMenuScene = new Scene(customerMenuParent);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.setScene(customerMenuScene);

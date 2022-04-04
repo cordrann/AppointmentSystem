@@ -1,6 +1,6 @@
-package View;
+package Controller;
 
-import Main.JDBC;
+//import Main.JDBC;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -66,7 +66,7 @@ public class LoginScreenController implements Initializable{
            //if username and password are valid allow user to proceed to next screen
            else{
                Parent mainMenuParent;
-               mainMenuParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MainMenu.FXML")));
+               mainMenuParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/MainMenu.FXML")));
                Scene mainMenuScene = new Scene(mainMenuParent);
                Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                app_stage.setScene(mainMenuScene);
@@ -84,8 +84,8 @@ public class LoginScreenController implements Initializable{
         /**
          *  Get the current user's locale setting and store in a variable
          */
-         Locale userLocale = Locale.getDefault();
-         localeLabel.setText(userLocale.toString());
+        // Locale userLocale = Locale.getDefault();
+         //localeLabel.setText(userLocale.toString());
 
     }
 }

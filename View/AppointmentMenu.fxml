@@ -17,7 +17,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="View.AppointmentMenuController"
+            fx:controller="Controller.AppointmentMenuController"
             prefHeight="400.0" prefWidth="600.0">
     <children>
         <Label layoutX="14.0" layoutY="14.0" prefHeight="66.0" prefWidth="250.0" text="Appointment">
