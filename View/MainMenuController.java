@@ -16,7 +16,7 @@ public class MainMenuController {
     /**
      * go to the customer menu
      * @param event customer menu button clicked
-     * @throws IOException
+     * @throws IOException throws input/output exceptions
      */
     @FXML private void customerMenuClick(ActionEvent event) throws IOException {
         Parent customerMenuParent;
@@ -27,6 +27,12 @@ public class MainMenuController {
         app_stage.show();
 
     }
+
+    /**
+     * go to the appointment menu
+     * @param event appointment menu button clicked
+     * @throws IOException throws input/output exceptions
+     */
     @FXML private void appointmentMenuClick(ActionEvent event) throws IOException{
         Parent appointmentMenuParent;
         appointmentMenuParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("AppointmentMenu.FXML")));
@@ -36,6 +42,12 @@ public class MainMenuController {
         app_stage.show();
 
     }
+
+    /**
+     *go to the appointment view table
+     * @param event view appointment button clicked
+     * @throws IOException throws input/output exceptions
+     */
     @FXML private void appointmentViewClick(ActionEvent event) throws IOException{
         Parent appointmentScheduleParent;
         appointmentScheduleParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Schedule.FXML")));
