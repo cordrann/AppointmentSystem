@@ -84,8 +84,14 @@ public class LoginScreenController implements Initializable{
         /**
          *  Get the current user's locale setting and store in a variable
          */
-        // Locale userLocale = Locale.getDefault();
-         //localeLabel.setText(userLocale.toString());
+         Locale userLocale = Locale.getDefault();
+
+         String lang = userLocale.getDisplayLanguage();
+         String country = userLocale.getDisplayCountry();
+
+         if(userLocale != null) {
+             localeLabel.setText("Country: " + country +"\n" + "Language: " + lang);
+         }
 
     }
 }
