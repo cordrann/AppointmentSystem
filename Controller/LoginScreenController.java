@@ -1,6 +1,8 @@
 package Controller;
 
 //import Main.JDBC;
+import DataAccess.LoginDB;
+import Database.JDBC;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +18,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.*;
+import java.time.ZoneId;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -37,6 +41,10 @@ public class LoginScreenController implements Initializable{
     /**label text for login errors*/
     @FXML private Label localeLabel;
 
+    @FXML private Label userNameLabel;
+
+    @FXML private Label passwordLabel;
+
 
 
 
@@ -50,28 +58,39 @@ public class LoginScreenController implements Initializable{
        String uName = userNameField.getText();
        String pword = passwordField.getText();
 
+       uName = uName.replaceAll("\\s+", "nope");
+       pword = pword.replaceAll("\\s+", "nope");
+
+       Locale currentLocale = Locale.getDefault();
+
+       ResourceBundle errorLang = ResourceBundle.getBundle("LoginScreenBundle", currentLocale);
+
        //Check if the username or password is empty and print error if so
        if(uName.isEmpty() || pword.isEmpty()){
-           loginError.setText("Please enter both a username and password to continue");
+           loginError.setText(errorLang.getString("badInputKey"));
        }
        //if both username and password are present attempt to validate with database
        else{
-           //JDBC.validate
 
            //if username or password are invalid print error indicating so
-           if(false == true){
-               loginError.setText("Invalid username or password, please try again");
-           }
+          try {
+              boolean valid = LoginDB.loginCredentials(uName, pword);
+              if (LoginDB.loginCredentials(uName, pword) == false) {
+                  loginError.setText("Invalid username or password, please try again");
+              }
 
-           //if username and password are valid allow user to proceed to next screen
-           else{
-               Parent mainMenuParent;
-               mainMenuParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/MainMenu.FXML")));
-               Scene mainMenuScene = new Scene(mainMenuParent);
-               Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-               app_stage.setScene(mainMenuScene);
-               app_stage.show();
-           }
+              //if username and password are valid allow user to proceed to next screen
+              else {
+                  Parent mainMenuParent;
+                  mainMenuParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/MainMenu.FXML")));
+                  Scene mainMenuScene = new Scene(mainMenuParent);
+                  Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                  app_stage.setScene(mainMenuScene);
+                  app_stage.show();
+              }
+          }catch(Exception e){
+              loginError.setText(e.getMessage());
+          }
 
 
        }
@@ -79,18 +98,36 @@ public class LoginScreenController implements Initializable{
 
     }
 
+
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         /**
          *  Get the current user's locale setting and store in a variable
          */
-         Locale userLocale = Locale.getDefault();
+         ZoneId userLocale = ZoneId.systemDefault();
+         Locale lang = Locale.getDefault();
 
-         String lang = userLocale.getDisplayLanguage();
-         String country = userLocale.getDisplayCountry();
+
+
 
          if(userLocale != null) {
-             localeLabel.setText("Country: " + country +"\n" + "Language: " + lang);
+             localeLabel.setText(userLocale.toString());
+         }
+
+         if(lang != null){
+             ResourceBundle language = ResourceBundle.getBundle("LoginScreenBundle", lang);
+             userNameLabel.setText(language.getString("unKey"));
+
+
+
+
+
+
+
+
+
          }
 
     }
