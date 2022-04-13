@@ -91,13 +91,15 @@ public class CustomerMenuController implements Initializable {
             //parse user input and put into variables
             String newName = customerNameField.getText();
             String newAddress = addressField.getText();
-            String newCountry = countryBox.getValue().toString();
             String newPostal = postalField.getText();
             String newPhone = phoneField.getText();
             String newState = stateBox.getValue().toString();
 
 
-            Customer newCustomer = new Customer(1, newName, newAddress, newPostal, newPhone, "a", "a");
+            CustomerDB.insertCustomer(newName, newAddress, newPostal, newPhone, newState);
+
+            tablePopulate();
+
         } catch (Exception e) {
             errorLabel.setText("Invalid input, try again.");
         }
@@ -144,21 +146,26 @@ public class CustomerMenuController implements Initializable {
 
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    private void tablePopulate(){
         ObservableList<Customer> customers = CustomerDB.getAllCustomers();
 
         if(customers.isEmpty()==false) {
-           cidColumn.setCellValueFactory(new PropertyValueFactory<>("customerID"));
-           nameColumn.setCellValueFactory(new PropertyValueFactory<>("customerName"));
-           addressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
-           postalColumn.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
-           phoneColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
-           countryColumn.setCellValueFactory(new PropertyValueFactory<>("division"));
-           stateColumn.setCellValueFactory(new PropertyValueFactory<>("country"));
+            cidColumn.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+            nameColumn.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+            addressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
+            postalColumn.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
+            phoneColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
+            countryColumn.setCellValueFactory(new PropertyValueFactory<>("division"));
+            stateColumn.setCellValueFactory(new PropertyValueFactory<>("country"));
 
-           customerTable.setItems(customers);
+            customerTable.setItems(customers);
         }
+
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        tablePopulate();
 
     }
 }

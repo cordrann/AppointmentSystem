@@ -10,6 +10,33 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CustomerDB {
+    public static void insertCustomer(String name, String address, String postal, String phone, String state) {
+
+        int divisionID;
+
+        try {
+            String divIDQuery = "SELECT Division_ID FROM First_Level_Divisions WHERE Division = \"" + state + "\"";
+            PreparedStatement dIDQ = JDBC.getConnection().prepareStatement(divIDQuery);
+
+            ResultSet results = dIDQ.executeQuery();
+            divisionID = results.getInt("Division_ID");
+
+            String insert = "INSERT INTO Customers VALUES(NULL, ?,? ?,?, NULL, NULL, NULL, NULL, ?)";
+
+            PreparedStatement ips = JDBC.getConnection().prepareStatement(insert);
+
+            ips.setString(1,name);
+            ips.setString(2,address);
+            ips.setString(3, postal);
+            ips.setString(4, phone);
+            ips.setInt(9, divisionID);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public static ObservableList<Customer> getAllCustomers(){
 
         ObservableList<Customer> customers = FXCollections.observableArrayList();
@@ -27,7 +54,7 @@ public class CustomerDB {
                 String pcode = results.getString("Postal_Code");
                 String phone = results.getString("Phone");
                 String division = results.getString("Division");
-                String country = results.getString("Country")
+                String country = results.getString("Country");
                 Customer thisCustomer = new Customer (cid, name, address, pcode, phone, division, country);
                 customers.add(thisCustomer);
             }
