@@ -2,7 +2,6 @@ package Controller;
 
 //import Main.JDBC;
 import DataAccess.LoginDB;
-import Database.JDBC;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +17,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.*;
 import java.time.ZoneId;
 import java.util.Locale;
 import java.util.Objects;
@@ -39,7 +37,7 @@ public class LoginScreenController implements Initializable{
     @FXML private Label loginError;
 
     /**label text for login errors*/
-    @FXML private Label localeLabel;
+    @FXML private Label zoneLabel;
 
     @FXML private Label userNameLabel;
 
@@ -63,7 +61,7 @@ public class LoginScreenController implements Initializable{
 
        Locale currentLocale = Locale.getDefault();
 
-       ResourceBundle errorLang = ResourceBundle.getBundle("LoginScreenBundle", currentLocale);
+       ResourceBundle errorLang = ResourceBundle.getBundle("Controller/LoginScreenBundle", currentLocale);
 
        //Check if the username or password is empty and print error if so
        if(uName.isEmpty() || pword.isEmpty()){
@@ -76,7 +74,7 @@ public class LoginScreenController implements Initializable{
           try {
               boolean valid = LoginDB.loginCredentials(uName, pword);
               if (LoginDB.loginCredentials(uName, pword) == false) {
-                  loginError.setText("Invalid username or password, please try again");
+                  loginError.setText(errorLang.getString("falseLoginKey"));
               }
 
               //if username and password are valid allow user to proceed to next screen
@@ -106,29 +104,16 @@ public class LoginScreenController implements Initializable{
         /**
          *  Get the current user's locale setting and store in a variable
          */
-         ZoneId userLocale = ZoneId.systemDefault();
+         ZoneId userZone = ZoneId.systemDefault();
          Locale lang = Locale.getDefault();
 
+         zoneLabel.setText(userZone.toString());
 
+         ResourceBundle language = ResourceBundle.getBundle("Controller/LoginScreenBundle", lang);
+         userNameLabel.setText(language.getString("unKey"));
+         passwordLabel.setText(language.getString("pwKey"));
+         loginButton.setText(language.getString("loginKey"));
 
-
-         if(userLocale != null) {
-             localeLabel.setText(userLocale.toString());
-         }
-
-         if(lang != null){
-             ResourceBundle language = ResourceBundle.getBundle("LoginScreenBundle", lang);
-             userNameLabel.setText(language.getString("unKey"));
-
-
-
-
-
-
-
-
-
-         }
 
     }
 }

@@ -37,15 +37,15 @@
         </VBox>
         <ComboBox fx:id="countryBox" layoutX="81.0" layoutY="268.0" prefWidth="150.0" promptText="Country" />
         <ComboBox fx:id="stateBox" layoutX="81.0" layoutY="314.0" prefWidth="150.0" promptText="State/Province" />
-        <TableView layoutX="246.0" layoutY="63.0" prefHeight="334.0" prefWidth="562.0">
+        <TableView fx:id="customerTable" layoutX="246.0" layoutY="63.0" prefHeight="334.0" prefWidth="562.0">
             <columns>
-                <TableColumn prefWidth="39.0" text="ID" />
-                <TableColumn prefWidth="98.0" text="Name" />
-                <TableColumn prefWidth="102.0" text="Address" />
-                <TableColumn prefWidth="74.0" text="Postal Code" />
-                <TableColumn prefWidth="83.0" text="Phone" />
-                <TableColumn prefWidth="52.0" text="Country" />
-                <TableColumn prefWidth="113.0" text="State/Province" />
+                <TableColumn fx:id="cidColumn" prefWidth="39.0" text="ID" />
+                <TableColumn fx:id="nameColumn" prefWidth="98.0" text="Name" />
+                <TableColumn fx:id="addressColumn" prefWidth="102.0" text="Address" />
+                <TableColumn fx:id="postalColumn" prefWidth="74.0" text="Postal Code" />
+                <TableColumn fx:id="phoneColumn" prefWidth="83.0" text="Phone" />
+                <TableColumn fx:id="countryColumn" prefWidth="52.0" text="Country" />
+                <TableColumn fx:id="stateColumn" prefWidth="113.0" text="State/Province" />
             </columns>
         </TableView>
         <Button fx:id="addCustomerButton" layoutX="172.0" layoutY="460.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="Add" />

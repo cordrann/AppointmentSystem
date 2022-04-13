@@ -12,14 +12,13 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("View/LoginScreen.fxml"));
-        primaryStage.setTitle("Login");
         primaryStage.setScene(new Scene(root, 800, 600));
         primaryStage.show();
     }
 
 
     public static void main(String[] args) {
-        Locale.setDefault(new Locale("fr"));
+        //Locale.setDefault(new Locale("fr"));
         JDBC.makeConnection();
         launch(args);
         JDBC.closeConnection();
