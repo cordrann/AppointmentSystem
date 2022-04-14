@@ -29,7 +29,7 @@ public class CustomerDB {
             ips.setString(2,address);
             ips.setString(3, postal);
             ips.setString(4, phone);
-            ips.setInt(9, divisionID);
+            ips.setInt(5, divisionID);
 
         } catch (SQLException e) {
             e.printStackTrace();

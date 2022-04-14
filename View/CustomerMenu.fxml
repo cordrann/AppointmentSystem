@@ -35,7 +35,7 @@
                 <TextField fx:id="phoneField" />
             </children>
         </VBox>
-        <ComboBox fx:id="countryBox" layoutX="81.0" layoutY="268.0" prefWidth="150.0" promptText="Country" />
+        <ComboBox fx:id="countryBox" layoutX="81.0" layoutY="268.0" onAction="#countrySelection" prefWidth="150.0" promptText="Country" />
         <ComboBox fx:id="stateBox" layoutX="81.0" layoutY="314.0" prefWidth="150.0" promptText="State/Province" />
         <TableView fx:id="customerTable" layoutX="246.0" layoutY="63.0" prefHeight="334.0" prefWidth="562.0">
             <columns>

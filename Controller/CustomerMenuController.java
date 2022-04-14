@@ -1,6 +1,8 @@
 package Controller;
 
+import DataAccess.CountriesDB;
 import DataAccess.CustomerDB;
+import DataAccess.FirstLevelDivisionsDB;
 import Model.Customer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -146,6 +148,12 @@ public class CustomerMenuController implements Initializable {
 
     }
 
+    @FXML private void countrySelection(ActionEvent event) throws IOException {
+       String country = countryBox.getValue().toString();
+       ObservableList<String> divisions = FirstLevelDivisionsDB.getFilteredDivisions(country);
+       stateBox.setItems(divisions);
+    }
+
     private void tablePopulate(){
         ObservableList<Customer> customers = CustomerDB.getAllCustomers();
 
@@ -163,9 +171,13 @@ public class CustomerMenuController implements Initializable {
 
     }
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         tablePopulate();
+        ObservableList<String> countries = CountriesDB.getAllCountries();
+        countryBox.setItems(countries);
+
 
     }
 }
