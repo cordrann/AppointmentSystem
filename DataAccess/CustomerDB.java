@@ -94,8 +94,6 @@ public class CustomerDB {
             ups.setInt(5, divisionID);
             ups.setInt(6,cid);
 
-            System.out.println(ups.toString());
-
             ups.execute();
 
         } catch (SQLException e) {
@@ -105,4 +103,19 @@ public class CustomerDB {
     }
 
 
+    public static void deleteCustomer(Integer cid) {
+        try{
+            String deleteA = "DELETE FROM Appointments WHERE Customer_ID = ?";
+            PreparedStatement daps = JDBC.getConnection().prepareStatement(deleteA);
+            daps.setInt(1,cid);
+            daps.execute();
+
+            String deleteC = "DELETE FROM Customers WHERE Customer_ID = ?";
+            PreparedStatement dcps = JDBC.getConnection().prepareStatement(deleteC);
+            dcps.setInt(1, cid);
+            dcps.execute();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
 }

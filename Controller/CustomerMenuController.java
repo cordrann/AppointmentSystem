@@ -83,6 +83,8 @@ public class CustomerMenuController implements Initializable {
     @FXML private TableColumn<Customer, String> countryColumn;
     @FXML private TableColumn<Customer, String> stateColumn;
 
+    Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
+
     /**
      * add customer to the database after checking for valid input
      *
@@ -147,21 +149,7 @@ public class CustomerMenuController implements Initializable {
     }
 
    @FXML private void clearButtonClicked(ActionEvent event) {
-        try{
-            cidField.setText("");
-            customerNameField.setText("");
-            addressField.setText("");
-            postalField.setText("");
-            phoneField.setText("");
-
-            stateBox.getSelectionModel().clearSelection();
-            countryBox.getSelectionModel().clearSelection();
-
-
-        }catch(Exception e){
-        }
-
-
+        clear();
    }
 
 
@@ -200,7 +188,47 @@ public class CustomerMenuController implements Initializable {
      */
     @FXML
     private void deleteButtonClick(ActionEvent event) throws IOException {
+        Customer selectedCustomer = null;
+        selectedCustomer = customerTable.getSelectionModel().getSelectedItem();
 
+        if(selectedCustomer == null){
+            errorLabel.setText("Please select a customer before trying to delete");
+        }
+        else{
+            confirmation.setHeaderText("Are you sure you would like to delete this customer?");
+            confirmation.setContentText(selectedCustomer.getCustomerName());
+            Optional<ButtonType> option = confirmation.showAndWait();
+            if(option.get() == null){
+                errorLabel.setText("Please select a button to proceed");
+            }
+            else if (option.get() ==ButtonType.OK){
+                CustomerDB.deleteCustomer(selectedCustomer.getCustomerID());
+                errorLabel.setText("Customer deleted");
+                clear();
+                tablePopulate();
+            }
+            else{
+                errorLabel.setText("Customer deletion canceled");
+            }
+
+        }
+    }
+
+    private void clear() {
+        try{
+            cidField.setText("");
+            customerNameField.setText("");
+            addressField.setText("");
+            postalField.setText("");
+            phoneField.setText("");
+
+            stateBox.getSelectionModel().clearSelection();
+            countryBox.getSelectionModel().clearSelection();
+
+
+        }catch(Exception e){
+            errorLabel.setText("Clear failed");
+        }
     }
 
     /**

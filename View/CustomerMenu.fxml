@@ -51,8 +51,8 @@
         <Button fx:id="saveCustomerButton" layoutX="172.0" layoutY="460.0" mnemonicParsing="false" onAction="#saveButtonClick" prefHeight="25.0" prefWidth="118.0" text="Save" />
         <Button fx:id="backButton" layoutX="645.0" layoutY="460.0" mnemonicParsing="false" onAction="#backButtonClick" prefHeight="25.0" prefWidth="125.0" text="Back" />
         <Button fx:id="updateCustomerButton" layoutX="332.0" layoutY="460.0" mnemonicParsing="false" onAction="#updateButtonClick" prefHeight="25.0" prefWidth="118.0" text="Update" />
-        <Button fx:id="deleteCustomerButton" layoutX="482.0" layoutY="460.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="125.0" text="Delete" />
-      <Label fx:id="errorLabel" layoutX="344.0" layoutY="424.0" prefHeight="17.0" prefWidth="232.0" />
+        <Button fx:id="deleteCustomerButton" layoutX="482.0" layoutY="460.0" mnemonicParsing="false" onAction="#deleteButtonClick" prefHeight="25.0" prefWidth="125.0" text="Delete" />
+      <Label fx:id="errorLabel" layoutX="244.0" layoutY="424.0" prefHeight="17.0" prefWidth="471.0" />
       <Button fx:id="clearButton" layoutX="79.0" layoutY="372.0" mnemonicParsing="false" onAction="#clearButtonClicked" prefHeight="25.0" prefWidth="125.0" text="Clear Data" />
       <Label layoutX="14.0" layoutY="272.0" text="Country" />
       <Label layoutX="14.0" layoutY="318.0" text="State/Region" />
