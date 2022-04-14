@@ -58,7 +58,6 @@ public class FirstLevelDivisionsDB {
             String queryDivision = ("SELECT Division FROM First_Level_Divisions WHERE Country_ID = ?");
             PreparedStatement dQ = JDBC.getConnection().prepareStatement(queryDivision);
             dQ.setInt(1, cID);
-            System.out.print(dQ.toString());
             ResultSet resultsDivision = dQ.executeQuery();
 
             while(resultsDivision.next()){

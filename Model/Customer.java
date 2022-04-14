@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 import java.time.chrono.ChronoZonedDateTime;
 
 public class Customer {
-    private int customerID;
+    private Integer customerID;
     private String customerName;
     private String address;
     private String postalCode;
@@ -13,7 +13,7 @@ public class Customer {
     private String division;
     private String country;
 
-    public Customer(int customerID, String customerName, String address, String postalCode, String phone, String division, String country) {
+    public Customer(Integer customerID, String customerName, String address, String postalCode, String phone, String division, String country) {
         this.customerID = customerID;
         this.customerName = customerName;
         this.address = address;
@@ -39,11 +39,11 @@ public class Customer {
         this.country = country;
     }
 
-    public int getCustomerID() {
+    public Integer getCustomerID() {
         return customerID;
     }
 
-    public void setCustomerID(int customerID) {
+    public void setCustomerID(Integer customerID) {
         this.customerID = customerID;
     }
 

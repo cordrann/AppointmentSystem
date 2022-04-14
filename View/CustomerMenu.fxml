@@ -17,7 +17,7 @@
                 <Font size="24.0" />
             </font>
         </Label>
-        <VBox layoutX="14.0" layoutY="75.0" prefHeight="251.0" prefWidth="100.0" spacing="20.0">
+        <VBox layoutX="14.0" layoutY="75.0" prefHeight="191.0" prefWidth="100.0" spacing="20.0">
             <children>
                 <Label text="Customer ID" />
                 <Label text="Customer Name" />
@@ -35,8 +35,8 @@
                 <TextField fx:id="phoneField" />
             </children>
         </VBox>
-        <ComboBox fx:id="countryBox" layoutX="81.0" layoutY="268.0" onAction="#countrySelection" prefWidth="150.0" promptText="Country" />
-        <ComboBox fx:id="stateBox" layoutX="81.0" layoutY="314.0" prefWidth="150.0" promptText="State/Province" />
+        <ComboBox fx:id="countryBox" layoutX="106.0" layoutY="268.0" onAction="#countrySelection" prefHeight="25.0" prefWidth="125.0" />
+        <ComboBox fx:id="stateBox" layoutX="106.0" layoutY="314.0" prefHeight="25.0" prefWidth="125.0" />
         <TableView fx:id="customerTable" layoutX="246.0" layoutY="63.0" prefHeight="334.0" prefWidth="562.0">
             <columns>
                 <TableColumn fx:id="cidColumn" prefWidth="39.0" text="ID" />
@@ -48,10 +48,14 @@
                 <TableColumn fx:id="stateColumn" prefWidth="113.0" text="State/Province" />
             </columns>
         </TableView>
-        <Button fx:id="addCustomerButton" layoutX="172.0" layoutY="460.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="Add" />
+        <Button fx:id="saveCustomerButton" layoutX="172.0" layoutY="460.0" mnemonicParsing="false" onAction="#saveButtonClick" prefHeight="25.0" prefWidth="118.0" text="Save" />
         <Button fx:id="backButton" layoutX="645.0" layoutY="460.0" mnemonicParsing="false" onAction="#backButtonClick" prefHeight="25.0" prefWidth="125.0" text="Back" />
-        <Button fx:id="updateCustomerButton" layoutX="332.0" layoutY="460.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="Update" />
+        <Button fx:id="updateCustomerButton" layoutX="332.0" layoutY="460.0" mnemonicParsing="false" onAction="#updateButtonClick" prefHeight="25.0" prefWidth="118.0" text="Update" />
         <Button fx:id="deleteCustomerButton" layoutX="482.0" layoutY="460.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="125.0" text="Delete" />
+      <Label fx:id="errorLabel" layoutX="344.0" layoutY="424.0" prefHeight="17.0" prefWidth="232.0" />
+      <Button fx:id="clearButton" layoutX="79.0" layoutY="372.0" mnemonicParsing="false" onAction="#clearButtonClicked" prefHeight="25.0" prefWidth="125.0" text="Clear Data" />
+      <Label layoutX="14.0" layoutY="272.0" text="Country" />
+      <Label layoutX="14.0" layoutY="318.0" text="State/Region" />
     </children>
 
 </AnchorPane>

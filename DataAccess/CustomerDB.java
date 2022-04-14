@@ -16,13 +16,16 @@ public class CustomerDB {
 
         try {
             String divIDQuery = "SELECT Division_ID FROM First_Level_Divisions WHERE Division = \"" + state + "\"";
+            System.out.println(divIDQuery);
             PreparedStatement dIDQ = JDBC.getConnection().prepareStatement(divIDQuery);
 
             ResultSet results = dIDQ.executeQuery();
+            results.next();
             divisionID = results.getInt("Division_ID");
 
-            String insert = "INSERT INTO Customers VALUES(NULL, ?,? ?,?, NULL, NULL, NULL, NULL, ?)";
-
+            String insert = "INSERT INTO Customers (Customer_ID, Customer_Name, Address, Postal_Code, Phone, Division_ID) " +
+                    "VALUES(NULL, ?, ?, ?, ?, ?)";
+            System.out.println(insert);
             PreparedStatement ips = JDBC.getConnection().prepareStatement(insert);
 
             ips.setString(1,name);
@@ -30,6 +33,8 @@ public class CustomerDB {
             ips.setString(3, postal);
             ips.setString(4, phone);
             ips.setInt(5, divisionID);
+
+            ips.execute();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -64,5 +69,40 @@ public class CustomerDB {
 
         return customers;
     }
+
+    public static void updateCustomer(Integer cid, String name, String address, String postal, String phone, String state) {
+
+        int divisionID;
+
+        try {
+            String divIDQuery = "SELECT Division_ID FROM First_Level_Divisions WHERE Division = \"" + state + "\"";
+            PreparedStatement dIDQ = JDBC.getConnection().prepareStatement(divIDQuery);
+
+            ResultSet results = dIDQ.executeQuery();
+            results.next();
+            divisionID = results.getInt("Division_ID");
+
+            String update = "UPDATE Customers SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Division_ID = ? " +
+                    "WHERE Customer_ID = ?";
+
+            PreparedStatement ups = JDBC.getConnection().prepareStatement(update);
+
+            ups.setString(1,name);
+            ups.setString(2,address);
+            ups.setString(3, postal);
+            ups.setString(4, phone);
+            ups.setInt(5, divisionID);
+            ups.setInt(6,cid);
+
+            System.out.println(ups.toString());
+
+            ups.execute();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
 }

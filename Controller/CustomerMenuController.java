@@ -20,7 +20,10 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.ResourceBundle;
+
+import static java.lang.Integer.parseInt;
 
 public class CustomerMenuController implements Initializable {
     /**
@@ -63,10 +66,11 @@ public class CustomerMenuController implements Initializable {
     /**
      * buttons to add/update/delete customers or return to main menu
      */
-    @FXML private Button addCustomerButton;
+    @FXML private Button saveCustomerButton;
     @FXML private Button updateCustomerButton;
     @FXML private Button deleteCustomerButton;
     @FXML private Button backButton;
+    @FXML private Button clearButton;
 
     @FXML private Label errorLabel;
 
@@ -86,27 +90,81 @@ public class CustomerMenuController implements Initializable {
      * @throws IOException throws input/output exceptions
      */
     @FXML
-    private void addButtonClick(ActionEvent event) throws IOException {
-        //try/catch block makes sure data types are appropriate
+    private void saveButtonClick(ActionEvent event) throws IOException {
 
-        try {
-            //parse user input and put into variables
-            String newName = customerNameField.getText();
-            String newAddress = addressField.getText();
-            String newPostal = postalField.getText();
-            String newPhone = phoneField.getText();
-            String newState = stateBox.getValue().toString();
+        if(cidField.getText() == "") {
+
+            if(customerNameField.getText() == "" || addressField.getText()== "" || postalField.getText() == "" || phoneField.getText() == "") {
+                errorLabel.setText("Missing input value, please try again");
+            }
+            else {
+                try {
+                    //parse user input and put into variables
+                    String newName = customerNameField.getText();
+                    String newAddress = addressField.getText();
+                    String newPostal = postalField.getText();
+                    String newPhone = phoneField.getText();
+                    String newState = stateBox.getValue().toString();
 
 
-            CustomerDB.insertCustomer(newName, newAddress, newPostal, newPhone, newState);
+                    CustomerDB.insertCustomer(newName, newAddress, newPostal, newPhone, newState);
 
-            tablePopulate();
+                    tablePopulate();
+                    errorLabel.setText("");
 
-        } catch (Exception e) {
-            errorLabel.setText("Invalid input, try again.");
+                } catch (Exception e) {
+                    errorLabel.setText("Invalid input, try again.");
+                }
+            }
+
+
+
         }
 
+        else{
+            if(customerNameField.getText() == "" || addressField.getText()== "" || postalField.getText() == "" || phoneField.getText() == "") {
+                errorLabel.setText("Missing input value, please try again");
+            }
+            else{
+                try{
+                    Integer cid = parseInt(cidField.getText());
+                    String newName = customerNameField.getText();
+                    String newAddress = addressField.getText();
+                    String newPostal = postalField.getText();
+                    String newPhone = phoneField.getText();
+                    String newState = stateBox.getValue().toString();
+
+                    CustomerDB.updateCustomer(cid, newName,newAddress, newPostal, newPhone, newState);
+
+                    tablePopulate();
+                    errorLabel.setText("Customer with ID "+cid+" updated");
+
+                }catch (Exception e){
+                    errorLabel.setText("Invalid input, try again");
+                }
+            }
+        }
     }
+
+   @FXML private void clearButtonClicked(ActionEvent event) {
+        try{
+            cidField.setText("");
+            customerNameField.setText("");
+            addressField.setText("");
+            postalField.setText("");
+            phoneField.setText("");
+
+            stateBox.getSelectionModel().clearSelection();
+            countryBox.getSelectionModel().clearSelection();
+
+
+        }catch(Exception e){
+        }
+
+
+   }
+
+
 
     /**
      * update customer in the database after checking for valid input
@@ -116,6 +174,20 @@ public class CustomerMenuController implements Initializable {
      */
     @FXML
     private void updateButtonClick(ActionEvent event) throws IOException {
+        try{
+            Customer customer = customerTable.getSelectionModel().getSelectedItem();
+
+            cidField.setText(customer.getCustomerID().toString());
+            customerNameField.setText(customer.getCustomerName());
+            addressField.setText(customer.getAddress());
+            phoneField.setText(customer.getPhone());
+            postalField.setText(customer.getAddress());
+            countryBox.getSelectionModel().select(customer.getCountry());
+            stateBox.getSelectionModel().select(customer.getDivision());
+
+        }catch(Exception e){
+            errorLabel.setText("");
+        }
 
     }
 
@@ -149,9 +221,11 @@ public class CustomerMenuController implements Initializable {
     }
 
     @FXML private void countrySelection(ActionEvent event) throws IOException {
-       String country = countryBox.getValue().toString();
-       ObservableList<String> divisions = FirstLevelDivisionsDB.getFilteredDivisions(country);
-       stateBox.setItems(divisions);
+        if(countryBox.getValue() != null) {
+            String country = countryBox.getValue().toString();
+            ObservableList<String> divisions = FirstLevelDivisionsDB.getFilteredDivisions(country);
+            stateBox.setItems(divisions);
+        }
     }
 
     private void tablePopulate(){
@@ -175,6 +249,7 @@ public class CustomerMenuController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         tablePopulate();
+
         ObservableList<String> countries = CountriesDB.getAllCountries();
         countryBox.setItems(countries);
 
