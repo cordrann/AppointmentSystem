@@ -37,12 +37,12 @@
                 <TextField fx:id="titleField" />
                 <TextField fx:id="descField" />
                 <TextField fx:id="locationField" />
-                <ComboBox fx:id="contactBox" prefWidth="150.0" promptText="Contact" />
-                <ComboBox fx:id="typeBox" prefWidth="150.0" promptText="Type" />
-                <ComboBox fx:id="startBox" prefWidth="150.0" promptText="Start Date/Time" />
-                <ComboBox fx:id="endBox" prefWidth="150.0" promptText="End Date/Time" />
-                <TextField fx:id="cidField" disable="true" editable="false" promptText="Customer ID" />
-                <TextField fx:id="uidField" disable="true" editable="false" promptText="User ID" />
+                <ComboBox fx:id="contactBox" prefWidth="150.0" />
+                <ComboBox fx:id="typeBox" prefWidth="150.0" />
+                <ComboBox fx:id="startBox" prefWidth="150.0" />
+                <ComboBox fx:id="endBox" prefWidth="150.0" />
+            <ComboBox fx:id="customerBox" prefWidth="150.0" />
+            <ComboBox fx:id="userBox" prefWidth="150.0" />
             </children>
         </VBox>
         <TableView fx:id="appointmentTable" layoutX="246.0" layoutY="63.0" prefHeight="334.0" prefWidth="562.0">
@@ -60,7 +60,7 @@
             </columns>
         </TableView>
         <Button fx:id="saveButton" layoutX="172.0" layoutY="460.0" mnemonicParsing="false" onAction="#saveButtonClick" prefHeight="25.0" prefWidth="118.0" text="Save" />
-        <Button fx:id="backButton" layoutX="645.0" layoutY="460.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="125.0" text="Back" />
+        <Button fx:id="backButton" layoutX="645.0" layoutY="460.0" mnemonicParsing="false" onAction="#backButtonClick" prefHeight="25.0" prefWidth="125.0" text="Back" />
         <Button fx:id="updateButton" layoutX="332.0" layoutY="460.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="Update" />
         <Button fx:id="deleteButton" layoutX="482.0" layoutY="460.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="125.0" text="Delete" />
       <Button fx:id="clearButton" layoutX="64.0" layoutY="448.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="86.0" text="Clear" />

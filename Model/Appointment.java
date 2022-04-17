@@ -1,23 +1,24 @@
 package Model;
 
-import java.time.ZonedDateTime;
+import java.sql.Timestamp;
+
 
 
 public class Appointment {
-    private int appointmentID;
+    private Integer appointmentID;
     private String title;
     private String description;
     private String location;
     private String type;
-    private ZonedDateTime startTime;
-    private ZonedDateTime endTime;
-    private int customerID;
-    private int userID;
-    private int contactID;
+    private Timestamp startTime;
+    private Timestamp endTime;
+    private Integer customerID;
+    private Integer userID;
+    private Integer contactID;
 
-    public Appointment(int appointmentID, String title, String description, String location, String type,
-                       ZonedDateTime startTime, ZonedDateTime endTime, int customerID,
-                       int userID, int contactID) {
+    public Appointment(Integer appointmentID, String title, String description, String location, String type,
+                       Timestamp startTime, Timestamp endTime, Integer customerID,
+                       Integer userID, Integer contactID) {
         this.appointmentID = appointmentID;
         this.title = title;
         this.description = description;
@@ -34,7 +35,7 @@ public class Appointment {
         return appointmentID;
     }
 
-    public void setAppointmentID(int appointmentID) {
+    public void setAppointmentID(Integer appointmentID) {
         this.appointmentID = appointmentID;
     }
 
@@ -70,19 +71,19 @@ public class Appointment {
         this.type = type;
     }
 
-    public ZonedDateTime getStartTime() {
+    public Timestamp getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(ZonedDateTime startTime) {
+    public void setStartTime(Timestamp startTime) {
         this.startTime = startTime;
     }
 
-    public ZonedDateTime getEndTime() {
+    public Timestamp getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(ZonedDateTime endTime) {
+    public void setEndTime(Timestamp endTime) {
         this.endTime = endTime;
     }
 
@@ -90,7 +91,7 @@ public class Appointment {
         return customerID;
     }
 
-    public void setCustomerID(int customerID) {
+    public void setCustomerID(Integer customerID) {
         this.customerID = customerID;
     }
 
@@ -98,7 +99,7 @@ public class Appointment {
         return userID;
     }
 
-    public void setUserID(int userID) {
+    public void setUserID(Integer userID) {
         this.userID = userID;
     }
 
@@ -106,7 +107,7 @@ public class Appointment {
         return contactID;
     }
 
-    public void setContactID(int contactID) {
+    public void setContactID(Integer contactID) {
         this.contactID = contactID;
     }
 }

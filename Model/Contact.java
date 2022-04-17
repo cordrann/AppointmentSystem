@@ -1,20 +1,14 @@
 package Model;
 
 public class Contact {
-    private int contactID;
+    private Integer contactID;
     private String contactName;
+    private String email;
 
-    public Contact(int contactID, String contactName) {
+    public Contact(Integer contactID, String contactName, String email) {
         this.contactID = contactID;
         this.contactName = contactName;
-    }
-
-    public int getContactID() {
-        return contactID;
-    }
-
-    public void setContactID(int contactID) {
-        this.contactID = contactID;
+        this.email = email;
     }
 
     public String getContactName() {
@@ -23,5 +17,21 @@ public class Contact {
 
     public void setContactName(String contactName) {
         this.contactName = contactName;
+    }
+
+    public void setContactID(Integer contactID) {
+        this.contactID = contactID;
+    }
+
+    public Integer getContactID(){
+        return contactID;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

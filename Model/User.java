@@ -1,21 +1,21 @@
 package Model;
 
 public class User {
-    private int userID;
+    private Integer userID;
     private String userName;
     private String password;
 
-    public User(int userID, String userName, String password) {
+    public User(Integer userID, String userName, String password) {
         this.userID = userID;
         this.userName = userName;
         this.password = password;
     }
 
-    public int getUserID() {
+    public Integer getUserID() {
         return userID;
     }
 
-    public void setUserID(int userID) {
+    public void setUserID(Integer userID) {
         this.userID = userID;
     }
 
