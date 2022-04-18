@@ -64,9 +64,9 @@
         </TableView>
         <Button fx:id="saveButton" layoutX="55.0" layoutY="591.0" mnemonicParsing="false" onAction="#saveButtonClick" prefHeight="25.0" prefWidth="118.0" text="Save" />
         <Button fx:id="backButton" layoutX="476.0" layoutY="591.0" mnemonicParsing="false" onAction="#backButtonClick" prefHeight="25.0" prefWidth="125.0" text="Back" />
-        <Button fx:id="updateButton" layoutX="198.0" layoutY="591.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="Update" />
-        <Button fx:id="deleteButton" layoutX="338.0" layoutY="591.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="125.0" text="Delete" />
-      <Button fx:id="clearButton" layoutX="83.0" layoutY="553.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="86.0" text="Clear" />
+        <Button fx:id="updateButton" layoutX="198.0" layoutY="591.0" mnemonicParsing="false" onAction="#updateButtonClick" prefHeight="25.0" prefWidth="118.0" text="Update" />
+        <Button fx:id="deleteButton" layoutX="338.0" layoutY="591.0" mnemonicParsing="false" onAction="#deleteButtonClick" prefHeight="25.0" prefWidth="125.0" text="Delete" />
+      <Button fx:id="clearButton" layoutX="83.0" layoutY="553.0" mnemonicParsing="false" onAction="#clearButtonClick" prefHeight="25.0" prefWidth="86.0" text="Clear" />
       <Label fx:id="errorLabel" layoutX="217.0" layoutY="557.0" prefHeight="17.0" prefWidth="620.0">
          <font>
             <Font name="System Bold" size="14.0" />

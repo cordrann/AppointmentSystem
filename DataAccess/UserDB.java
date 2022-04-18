@@ -34,4 +34,26 @@ public class UserDB {
     }
 
 
+    public static User getThisUser(Integer userID) {
+        try{
+            String userQuery = "Select * FROM Users WHERE User_ID = ?";
+            PreparedStatement uQ = JDBC.getConnection().prepareStatement(userQuery);
+            uQ.setInt(1, userID);
+
+            ResultSet results = uQ.executeQuery();
+            results.next();
+            Integer uid = results.getInt("User_ID");
+            String name = results.getString("User_Name");
+            String password = results.getString("Password");
+
+            User thisUser = new User (uid, name, password);
+
+            return thisUser;
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

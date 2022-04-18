@@ -1,5 +1,10 @@
 package Model;
 
+import Database.JDBC;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 
 
@@ -31,7 +36,7 @@ public class Appointment {
         this.contactID = contactID;
     }
 
-    public int getAppointmentID() {
+    public Integer getAppointmentID() {
         return appointmentID;
     }
 
@@ -110,4 +115,6 @@ public class Appointment {
     public void setContactID(Integer contactID) {
         this.contactID = contactID;
     }
+
+
 }

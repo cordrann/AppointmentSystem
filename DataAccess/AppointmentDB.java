@@ -102,4 +102,17 @@ public class AppointmentDB {
         return appointments;
 
     }
+
+    public static void deleteAppointment(Integer aid) {
+        try{
+            String deleteA = "DELETE FROM Appointments WHERE Appointment_ID = ?";
+            PreparedStatement daps = JDBC.getConnection().prepareStatement(deleteA);
+            daps.setInt(1,aid);
+            daps.execute();
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+    }
 }

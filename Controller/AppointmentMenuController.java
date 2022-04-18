@@ -89,6 +89,9 @@ public class AppointmentMenuController implements Initializable{
     @FXML private TableColumn<Appointment, Integer> uidColumn;
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm   MM/dd/yyyy  VV");
+
+    Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
+
     /**
      * add appointment to the database after checking for valid input
      *
@@ -130,35 +133,26 @@ public class AppointmentMenuController implements Initializable{
                         ObservableList<Appointment> appointments = AppointmentDB.getCustomerAppointments(customer.getCustomerID());
 
                         for(Appointment a : appointments){
-                            if(a.getStartTime().before(startStamp) && a.getEndTime().after(endStamp)){
+
+                            if((a.getStartTime().after(startStamp)||a.getStartTime().equals(startStamp)) && (a.getEndTime().before(endStamp))){
                                 errorLabel.setText(overlap);
                                 valid = false;
                                 break;
                             }
 
-                            if(a.getStartTime().after(startStamp) && a.getEndTime().before(endStamp)){
+                            if((a.getStartTime().before(startStamp) || a.getStartTime().equals(startStamp)) && a.getEndTime().after(startStamp)){
                                 errorLabel.setText(overlap);
                                 valid = false;
                                 break;
                             }
 
-                            if((a.getStartTime().before(startStamp) ||a.getStartTime().equals(startStamp)) && a.getEndTime().after(startStamp)){
-                                errorLabel.setText(overlap);
-                                valid = false;
-                                break;
-                            }
+                            //if (a.getStartTime().before(endStamp) && (a.getEndTime().after(endStamp)||a.getEndTime().equals(endStamp))){
+                              //  errorLabel.setText(overlap);
+                                //valid = false;
+                                //break;
+                            //}
 
-                            if (a.getStartTime().before(endStamp) && (a.getEndTime().after(endStamp)||a.getEndTime().equals(endStamp))){
-                                errorLabel.setText(overlap);
-                                valid = false;
-                                break;
-                            }
 
-                            if(a.getStartTime().equals(startStamp)  && a.getEndTime().equals(endStamp)){
-                                errorLabel.setText(overlap);
-                                valid = false;
-                                break;
-                            }
                         }
 
                         if(valid == true) {
@@ -216,9 +210,10 @@ public class AppointmentMenuController implements Initializable{
         }*/
     }
 
-    /*@FXML private void clearButtonClicked(ActionEvent event) {
+    @FXML private void clearButtonClick(ActionEvent event) {
         clear();
-    }*/
+    }
+
 
 
 
@@ -228,24 +223,29 @@ public class AppointmentMenuController implements Initializable{
      * @param event update button is clicked
      * @throws IOException throws input/output exceptions
      */
-   /* @FXML
+    @FXML
     private void updateButtonClick(ActionEvent event) throws IOException {
         try{
-            Appointment customer = customerTable.getSelectionModel().getSelectedItem();
+            Appointment appointment = appointmentTable.getSelectionModel().getSelectedItem();
 
-            cidField.setText(customer.getCustomerID().toString());
-            customerNameField.setText(customer.getCustomerName());
-            addressField.setText(customer.getAddress());
-            phoneField.setText(customer.getPhone());
-            postalField.setText(customer.getAddress());
-            countryBox.getSelectionModel().select(customer.getCountry());
-            stateBox.getSelectionModel().select(customer.getDivision());
+            aidField.setText(appointment.getAppointmentID().toString());
+            titleField.setText(appointment.getTitle());
+            descField.setText(appointment.getDescription());
+            locationField.setText(appointment.getLocation());
+            contactBox.getSelectionModel().select(ContactDB.getThisContact(appointment.getContactID()));
+            typeBox.getSelectionModel().select(appointment.getType());
+            customerBox.getSelectionModel().select(CustomerDB.getThisCustomer(appointment.getCustomerID()));
+            userBox.getSelectionModel().select(UserDB.getThisUser(appointment.getUserID()));
+            datePicker.setValue(appointment.getStartTime().toLocalDateTime().toLocalDate());
+            startBox.setValue(appointment.getStartTime().toLocalDateTime().atZone(ZoneId.systemDefault()).format(formatter));
+            endBox.setValue(appointment.getEndTime().toLocalDateTime().atZone(ZoneId.systemDefault()).format(formatter));
+
 
         }catch(Exception e){
             errorLabel.setText("");
         }
 
-    }*/
+    }
 
     /**
      * delete a customer from the database if one is selected
@@ -254,24 +254,24 @@ public class AppointmentMenuController implements Initializable{
      * @param event delete button is clicked
      * @throws IOException throws input/output exceptions
      */
-    /*@FXML
+    @FXML
     private void deleteButtonClick(ActionEvent event) throws IOException {
-        Appointment selectedCustomer = null;
-        selectedCustomer = customerTable.getSelectionModel().getSelectedItem();
+        Appointment selectedAppointment = null;
+        selectedAppointment = appointmentTable.getSelectionModel().getSelectedItem();
 
-        if(selectedCustomer == null){
+        if(selectedAppointment == null){
             errorLabel.setText("Please select a customer before trying to delete");
         }
         else{
             confirmation.setHeaderText("Are you sure you would like to delete this customer?");
-            confirmation.setContentText(selectedCustomer.getCustomerName());
+            confirmation.setContentText(selectedAppointment.getAppointmentID()+" "+ selectedAppointment.getTitle());
             Optional<ButtonType> option = confirmation.showAndWait();
             if(option.get() == null){
                 errorLabel.setText("Please select a button to proceed");
             }
-            else if (option.get() ==ButtonType.OK){
-                CustomerDB.deleteCustomer(selectedCustomer.getCustomerID());
-                errorLabel.setText("Customer deleted");
+            else if (option.get() == ButtonType.OK){
+                AppointmentDB.deleteAppointment(selectedAppointment.getAppointmentID());
+                errorLabel.setText("Appointment deleted");
                 clear();
                 tablePopulate();
             }
@@ -280,24 +280,31 @@ public class AppointmentMenuController implements Initializable{
             }
 
         }
-    }*/
+    }
 
-   /* private void clear() {
+   private void clear() {
         try{
-            cidField.setText("");
-            customerNameField.setText("");
-            addressField.setText("");
-            postalField.setText("");
-            phoneField.setText("");
-
-            stateBox.getSelectionModel().clearSelection();
-            countryBox.getSelectionModel().clearSelection();
-
-
+            aidField.setText("");
+            titleField.setText("");
+            descField.setText("");
+            locationField.setText("");
+            contactBox.getSelectionModel().clearSelection();
+            contactBox.setValue(null);
+            typeBox.getSelectionModel().clearSelection();
+            typeBox.setValue(null);
+            customerBox.getSelectionModel().clearSelection();
+            customerBox.setValue(null);
+            userBox.getSelectionModel().clearSelection();
+            userBox.setValue(null);
+            datePicker.setValue(LocalDate.now());
+            startBox.getSelectionModel().clearSelection();
+            startBox.setValue(null);
+            endBox.getSelectionModel().clearSelection();
+            endBox.setValue(null);
         }catch(Exception e){
             errorLabel.setText("Clear failed");
         }
-    }*/
+    }
 
     /**
      * go back to the main menu screen
@@ -361,11 +368,10 @@ public class AppointmentMenuController implements Initializable{
             endBox.setItems(endTimes);
 
 
-
-
-
         }
     }
+
+
 
 
 
@@ -387,20 +393,6 @@ public class AppointmentMenuController implements Initializable{
         ObservableList<User> users = UserDB.getAllUsers();
         userBox.setItems(users);
 
-        /*ZonedDateTime start = ZonedDateTime.of(LocalDate.now().getYear(), LocalDate.now().getMonth().getValue(),
-                LocalDate.now().getDayOfMonth(), 8, 0, 0, 0, ZoneId.of("US/Eastern"));
-        ZonedDateTime end = ZonedDateTime.of(LocalDate.now().getYear(), LocalDate.now().getMonth().getValue(),
-                LocalDate.now().getDayOfMonth(), 23, 45, 0, 0, ZoneId.of("US/Eastern"));
-
-        ZonedDateTime userStart = start.withZoneSameInstant(ZoneId.systemDefault());
-
-
-        while(start.isBefore(end.plusSeconds(1))){
-            startBox.getItems().add(userStart);
-            endBox.getItems().add(userStart.plusMinutes(15));
-            start = start.plusMinutes(15);
-            userStart = userStart.plusMinutes(15);
-        }*/
 
 
     }
