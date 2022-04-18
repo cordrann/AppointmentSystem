@@ -87,4 +87,9 @@ public class Customer {
     public void setDivisionID(int divisionID) {
         this.divisionID = divisionID;
     }
+
+
+    @Override public String toString(){
+        return(customerName);
+    }
 }

@@ -16,7 +16,7 @@ import java.time.ZonedDateTime;
 public class AppointmentDB {
 
     public static void insertAppointment(String newTitle, String description, String location, int contactID,
-                                         String type, Instant start, Instant end, Integer customerID, int userID) {
+                                         String type, Timestamp start, Timestamp end, Integer customerID, int userID) {
 
         try {
             String insert = "INSERT INTO Appointments (Appointment_ID, Title, Description, Location, Type," +
@@ -29,8 +29,8 @@ public class AppointmentDB {
             ips.setString(2,description);
             ips.setString(3, location);
             ips.setString(4, type);
-            ips.setTimestamp(5, Timestamp.from(start));
-            ips.setTimestamp(6, Timestamp.from(end));
+            ips.setTimestamp(5, start);
+            ips.setTimestamp(6, end);
             ips.setInt(7, customerID);
             ips.setInt(8, userID);
             ips.setInt(9, contactID);
@@ -70,5 +70,36 @@ public class AppointmentDB {
         }
 
         return appointments;
+    }
+
+    public static ObservableList<Appointment> getCustomerAppointments(Integer customerID) {
+        ObservableList<Appointment> appointments = FXCollections.observableArrayList();
+
+        try{
+            String appointmentQuery = "Select * FROM Appointments WHERE Customer_ID = ?";
+            PreparedStatement aQ = JDBC.getConnection().prepareStatement(appointmentQuery);
+            aQ.setInt(1,customerID);
+            ResultSet results = aQ.executeQuery();
+            while (results.next()){
+                Integer aid = results.getInt("Appointment_ID");
+                String title = results.getString("Title");
+                String description = results.getString("Description");
+                String location = results.getString("Location");
+                String type = results.getString("Type");
+                Timestamp start = results.getTimestamp("Start");
+                Timestamp end = results.getTimestamp("End");
+                Integer cuid = results.getInt("Customer_ID");
+                Integer uid = results.getInt("User_ID");
+                Integer coid = results.getInt("Contact_ID");
+                Appointment thisAppointment = new Appointment (aid, title, description, location, type,
+                        start, end, cuid, uid, coid);
+                appointments.add(thisAppointment);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return appointments;
+
     }
 }

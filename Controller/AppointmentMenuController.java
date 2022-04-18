@@ -15,12 +15,17 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.ChoiceBoxListCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.time.*;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.Temporal;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -57,8 +62,10 @@ public class AppointmentMenuController implements Initializable{
 
     @FXML private ComboBox typeBox;
 
-    @FXML private ComboBox<LocalTime> startBox;
-    @FXML private ComboBox<LocalTime> endBox;
+    @FXML private DatePicker datePicker;
+
+    @FXML private ComboBox<String> startBox;
+    @FXML private ComboBox<String> endBox;
 
 
     @FXML private Button saveButton;
@@ -80,6 +87,8 @@ public class AppointmentMenuController implements Initializable{
     @FXML private TableColumn<Appointment, LocalTime> endColumn;
     @FXML private TableColumn<Appointment, Integer> cidColumn;
     @FXML private TableColumn<Appointment, Integer> uidColumn;
+
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm   MM/dd/yyyy  VV");
     /**
      * add appointment to the database after checking for valid input
      *
@@ -91,7 +100,7 @@ public class AppointmentMenuController implements Initializable{
 
         if(aidField.getText() == "") {
 
-            if(titleField.getText() == "" || descField.getText()== "" || locationField.getText() == "") {
+            if(titleField.getText() == "" || descField.getText() == "" || locationField.getText() == "") {
                 errorLabel.setText("Missing input value, please try again");
             }
             else {
@@ -102,18 +111,76 @@ public class AppointmentMenuController implements Initializable{
                     String location = locationField.getText();
                     Contact contact  = contactBox.getValue();
                     String type = typeBox.getValue().toString();
-                    LocalTime start = startBox.getValue();
-                    LocalTime end = endBox.getValue();
+                    ZonedDateTime start = ZonedDateTime.from(formatter.parse(startBox.getValue()));
+                    ZonedDateTime end = ZonedDateTime.from(formatter.parse(endBox.getValue()));
                     Customer customer = customerBox.getValue();
                     User user = userBox.getValue();
+                    LocalDate startDate = datePicker.getValue();
+
+                    ZonedDateTime utcStart = start.withZoneSameInstant(ZoneId.of("UTC"));
+                    ZonedDateTime utcEnd = end.withZoneSameInstant(ZoneId.of("UTC"));
+
+                    Timestamp startStamp = Timestamp.from(Instant.from(utcStart));
+                    Timestamp endStamp = Timestamp.from(Instant.from(utcEnd));
+
+                    if(end.compareTo(start) > 0  && start.compareTo(ZonedDateTime.now()) > 0 ){
+                        boolean valid = true;
+                        String overlap = "There is an overlapping appointment, please select a different time";
+
+                        ObservableList<Appointment> appointments = AppointmentDB.getCustomerAppointments(customer.getCustomerID());
+
+                        for(Appointment a : appointments){
+                            if(a.getStartTime().before(startStamp) && a.getEndTime().after(endStamp)){
+                                errorLabel.setText(overlap);
+                                valid = false;
+                                break;
+                            }
+
+                            if(a.getStartTime().after(startStamp) && a.getEndTime().before(endStamp)){
+                                errorLabel.setText(overlap);
+                                valid = false;
+                                break;
+                            }
+
+                            if((a.getStartTime().before(startStamp) ||a.getStartTime().equals(startStamp)) && a.getEndTime().after(startStamp)){
+                                errorLabel.setText(overlap);
+                                valid = false;
+                                break;
+                            }
+
+                            if (a.getStartTime().before(endStamp) && (a.getEndTime().after(endStamp)||a.getEndTime().equals(endStamp))){
+                                errorLabel.setText(overlap);
+                                valid = false;
+                                break;
+                            }
+
+                            if(a.getStartTime().equals(startStamp)  && a.getEndTime().equals(endStamp)){
+                                errorLabel.setText(overlap);
+                                valid = false;
+                                break;
+                            }
+                        }
+
+                        if(valid == true) {
+                            AppointmentDB.insertAppointment(newTitle, description, location, contact.getContactID(),
+                                    type, startStamp, endStamp, customer.getCustomerID(), user.getUserID());
+                            tablePopulate();
+                            errorLabel.setText("");
+                        }
+                    }
+
+                    else if (end.compareTo(start) <= 0){
+                        errorLabel.setText("The appointment must start before it ends");
+                    }
+
+                    else if (start.compareTo(ZonedDateTime.now()) < 0){
+                        errorLabel.setText("Appointments can't be scheduled in the past");
+                    }
 
 
 
-                    //AppointmentDB.insertAppointment(newTitle, description, location, contact.getContactID(),
-                      //     type, start, end, customer.getCustomerID(), user.getUserID());
 
-                    //tablePopulate();
-                   // errorLabel.setText("");
+
 
                 } catch (Exception e) {
                     errorLabel.setText("Invalid input, try again.");
@@ -270,6 +337,37 @@ public class AppointmentMenuController implements Initializable{
 
     }
 
+    @FXML private void datePicked(ActionEvent event) {
+
+        if (datePicker.getValue() != null) {
+            ZonedDateTime start = ZonedDateTime.of(datePicker.getValue().getYear(), datePicker.getValue().getMonth().getValue(),
+                    datePicker.getValue().getDayOfMonth(), 8, 0, 0, 0, ZoneId.of("US/Eastern"));
+            ZonedDateTime end = ZonedDateTime.of(datePicker.getValue().getYear(), datePicker.getValue().getMonth().getValue(),
+                    datePicker.getValue().getDayOfMonth(), 23, 45, 0, 0, ZoneId.of("US/Eastern"));
+
+            ZonedDateTime userStart = start.withZoneSameInstant(ZoneId.systemDefault());
+
+            ObservableList<String> startTimes = FXCollections.observableArrayList();
+            ObservableList<String> endTimes = FXCollections.observableArrayList();
+
+            while (start.isBefore(end.plusSeconds(1))) {
+                startTimes.add(userStart.format(formatter));
+                endTimes.add(userStart.plusMinutes(15).format(formatter));
+                start = start.plusMinutes(15);
+                userStart = userStart.plusMinutes(15);
+            }
+
+            startBox.setItems(startTimes);
+            endBox.setItems(endTimes);
+
+
+
+
+
+        }
+    }
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -289,18 +387,20 @@ public class AppointmentMenuController implements Initializable{
         ObservableList<User> users = UserDB.getAllUsers();
         userBox.setItems(users);
 
-        ZonedDateTime zdt = ZonedDateTime.now();
-        ZoneOffset offset = zdt.getOffset();
-        Integer estoffset = offset.compareTo(ZoneOffset.of(ZoneId.of("America/New_York")));
+        /*ZonedDateTime start = ZonedDateTime.of(LocalDate.now().getYear(), LocalDate.now().getMonth().getValue(),
+                LocalDate.now().getDayOfMonth(), 8, 0, 0, 0, ZoneId.of("US/Eastern"));
+        ZonedDateTime end = ZonedDateTime.of(LocalDate.now().getYear(), LocalDate.now().getMonth().getValue(),
+                LocalDate.now().getDayOfMonth(), 23, 45, 0, 0, ZoneId.of("US/Eastern"));
 
-        LocalTime start = LocalTime.of(8+estoffset,0);
-        LocalTime end = LocalTime.of(21+estoffset,45);
+        ZonedDateTime userStart = start.withZoneSameInstant(ZoneId.systemDefault());
+
 
         while(start.isBefore(end.plusSeconds(1))){
-            startBox.getItems().add(start);
-            endBox.getItems().add(start.plusMinutes(15));
+            startBox.getItems().add(userStart);
+            endBox.getItems().add(userStart.plusMinutes(15));
             start = start.plusMinutes(15);
-        }
+            userStart = userStart.plusMinutes(15);
+        }*/
 
 
     }
