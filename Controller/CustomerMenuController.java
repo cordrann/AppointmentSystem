@@ -223,7 +223,9 @@ public class CustomerMenuController implements Initializable {
             phoneField.setText("");
 
             stateBox.getSelectionModel().clearSelection();
+            stateBox.setValue(null);
             countryBox.getSelectionModel().clearSelection();
+            countryBox.setValue(null);
 
 
         }catch(Exception e){
