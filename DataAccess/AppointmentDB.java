@@ -123,7 +123,7 @@ public class AppointmentDB {
             String appointmentQuery = "Select * FROM Appointments WHERE (Customer_ID = ? AND Appointment_ID != ?)";
             PreparedStatement aQ = JDBC.getConnection().prepareStatement(appointmentQuery);
             aQ.setInt(1, customerID);
-            aQ.setInt(1, appointmentID);
+            aQ.setInt(2, appointmentID);
             ResultSet results = aQ.executeQuery();
             while (results.next()){
                 Integer aid = results.getInt("Appointment_ID");
@@ -147,7 +147,7 @@ public class AppointmentDB {
         return appointments;
     }
 
-    public static void updateAppointment(Integer aid, String newTitle, String description, String location,
+    public static void updateAppointment (Integer aid, String newTitle, String description, String location,
                                          Integer contactID, String type, Timestamp startStamp, Timestamp endStamp,
                                          Integer customerID, Integer userID) {
         try {
@@ -157,20 +157,22 @@ public class AppointmentDB {
 
             PreparedStatement ups = JDBC.getConnection().prepareStatement(update);
 
-            ups.setString(1,newTitle);
+            ups.setString(1, newTitle);
             ups.setString(2, description);
             ups.setString(3, location);
             ups.setInt(4, contactID);
             ups.setString(5, type);
-            ups.setTimestamp(6,startStamp);
-            ups.setTimestamp(7,endStamp);
+            ups.setTimestamp(6, startStamp);
+            ups.setTimestamp(7, endStamp);
             ups.setInt(8, customerID);
             ups.setInt(9, userID);
             ups.setInt(10, aid);
 
-            ups.execute();
+
+            ups.executeUpdate();
 
         } catch (SQLException e) {
+            e.printStackTrace();
 
         }
 
