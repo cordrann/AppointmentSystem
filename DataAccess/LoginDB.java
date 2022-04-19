@@ -31,4 +31,19 @@ public class LoginDB {
         }
 
     }
+
+    public static Integer getUserID(String uName, String pword) {
+        try {
+            String query = ("SELECT User_ID FROM users WHERE User_Name =\"" + uName + "\" AND Password = \"" + pword + "\"");
+
+            PreparedStatement login = JDBC.getConnection().prepareStatement(query);
+            ResultSet results = login.executeQuery();
+            results.next();
+
+            return results.getInt("User_ID");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

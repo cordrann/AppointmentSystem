@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
 public class AppointmentDB {
@@ -176,6 +177,39 @@ public class AppointmentDB {
 
         }
 
+    }
+
+
+    public static ObservableList<Appointment> userAppsWithin15(Integer thisUserID) {
+        ObservableList<Appointment> appointments = FXCollections.observableArrayList();
+
+        try{
+            String appointmentQuery = "Select * FROM Appointments WHERE Start > ? AND Start < ? AND User_ID = ?";
+            PreparedStatement aQ = JDBC.getConnection().prepareStatement(appointmentQuery);
+            aQ.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
+            aQ.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now().plusMinutes(15)));
+            aQ.setInt(3, thisUserID);
+            ResultSet results = aQ.executeQuery();
+            while (results.next()){
+                Integer aid = results.getInt("Appointment_ID");
+                String title = results.getString("Title");
+                String description = results.getString("Description");
+                String location = results.getString("Location");
+                String type = results.getString("Type");
+                Timestamp start = results.getTimestamp("Start");
+                Timestamp end = results.getTimestamp("End");
+                Integer cuid = results.getInt("Customer_ID");
+                Integer uid = results.getInt("User_ID");
+                Integer coid = results.getInt("Contact_ID");
+                Appointment thisAppointment = new Appointment (aid, title, description, location, type,
+                        start, end, cuid, uid, coid);
+                appointments.add(thisAppointment);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return appointments;
     }
 
 

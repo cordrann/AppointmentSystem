@@ -79,8 +79,14 @@ public class LoginScreenController implements Initializable{
 
               //if username and password are valid allow user to proceed to next screen
               else {
-                  Parent mainMenuParent;
-                  mainMenuParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/MainMenu.FXML")));
+                  Integer userID = LoginDB.getUserID(uName, pword);
+
+                  FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MainMenu.FXML"));
+                  Parent mainMenuParent = loader.load();
+
+                  MainMenuController mmc = loader.getController();
+                  mmc.transferUserData(uName, userID);
+
                   Scene mainMenuScene = new Scene(mainMenuParent);
                   Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                   app_stage.setScene(mainMenuScene);

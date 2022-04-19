@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="Controller.ScheduleController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="783.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <ButtonBar layoutX="63.0" layoutY="180.0" prefHeight="40.0" prefWidth="200.0">
-            <buttons>
-                <Button fx:id="addAppointmentButton" mnemonicParsing="false" text="Menu" />
-                <Button fx:id="calendarButton" mnemonicParsing="false" text="View" />
-            </buttons>
-        </ButtonBar>
-        <Label layoutX="84.0" layoutY="46.0" text="Customers">
+        <TableView layoutX="14.0" layoutY="53.0" prefHeight="512.0" prefWidth="762.0">
+            <columns>
+                <TableColumn fx:id="appIdColumn" prefWidth="62.0" text="Appointment ID" />
+                <TableColumn fx:id="titleColumn" prefWidth="39.0" text="Title" />
+                <TableColumn fx:id="descColumn" prefWidth="71.0" text="Description" />
+                <TableColumn fx:id="locColumn" prefWidth="75.0" text="Location" />
+                <TableColumn fx:id="conColumn" prefWidth="53.0" text="Contact" />
+                <TableColumn fx:id="typeColumn" prefWidth="60.0" text="Type" />
+                <TableColumn fx:id="startColumn" prefWidth="100.0" text="Start Date/Time" />
+                <TableColumn fx:id="endColumn" prefWidth="102.0" text="End Date/Time" />
+                <TableColumn fx:id="cidColumn" prefWidth="89.0" text="Customer_ID" />
+                <TableColumn fx:id="uidColumn" prefWidth="109.0" text="User_ID" />
+            </columns>
+        </TableView>
+        <ComboBox fx:id="wkMonthCombo" layoutX="609.0" layoutY="14.0" prefWidth="150.0" promptText="Week or Month?" />
+        <DatePicker fx:id="appDatePicker" layoutX="418.0" layoutY="14.0" promptText="Starting Date" />
+        <Label layoutX="14.0" layoutY="9.0" prefHeight="35.0" prefWidth="250.0" text="Appointment Schedule">
             <font>
                 <Font size="24.0" />
             </font>
         </Label>
-        <Label layoutX="84.0" layoutY="145.0" text="Appointments">
-            <font>
-                <Font size="24.0" />
-            </font>
-        </Label>
-        <Button layoutX="103.0" layoutY="99.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" text="Menu" />
     </children>
-
 </AnchorPane>

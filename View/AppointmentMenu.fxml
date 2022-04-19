@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="652.0" prefWidth="1037.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AppointmentMenuController">
+<AnchorPane prefHeight="698.0" prefWidth="1071.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.AppointmentMenuController">
     <children>
         <Label layoutX="14.0" layoutY="14.0" prefHeight="66.0" prefWidth="250.0" text="Appointment">
             <font>
@@ -48,7 +48,7 @@
                 <ComboBox fx:id="endBox" prefWidth="150.0" promptText="Select a date first" />
             </children>
         </VBox>
-        <TableView fx:id="appointmentTable" layoutX="310.0" layoutY="61.0" prefHeight="471.0" prefWidth="713.0">
+        <TableView fx:id="appointmentTable" layoutX="310.0" layoutY="61.0" prefHeight="471.0" prefWidth="754.0">
             <columns>
                 <TableColumn fx:id="aidColumn" prefWidth="39.0" text="ID" />
                 <TableColumn fx:id="titleColumn" prefWidth="53.0" text="Title" />
@@ -56,10 +56,10 @@
                 <TableColumn fx:id="locationColumn" prefWidth="70.0" text="Location" />
                 <TableColumn fx:id="contactColumn" prefWidth="65.0" text="Contact" />
                 <TableColumn fx:id="typeColumn" prefWidth="52.0" text="Type" />
-                <TableColumn fx:id="startColumn" prefWidth="99.0" text="Start" />
-                <TableColumn fx:id="endColumn" prefWidth="123.0" text="End" />
-                <TableColumn fx:id="cidColumn" prefWidth="65.0" text="CustID" />
-                <TableColumn fx:id="uidColumn" prefWidth="64.0" text="UserID" />
+                <TableColumn fx:id="startColumn" prefWidth="152.0" text="Start" />
+                <TableColumn fx:id="endColumn" prefWidth="152.0" text="End" />
+                <TableColumn fx:id="cidColumn" prefWidth="45.0" text="CustID" />
+                <TableColumn fx:id="uidColumn" prefWidth="43.0" text="UserID" />
             </columns>
         </TableView>
         <Button fx:id="saveButton" layoutX="55.0" layoutY="591.0" mnemonicParsing="false" onAction="#saveButtonClick" prefHeight="25.0" prefWidth="118.0" text="Save" />
