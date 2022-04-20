@@ -52,6 +52,15 @@ public class MainMenuController  {
 
     }
 
+    @FXML private void reportContactClick(ActionEvent event) throws IOException{
+        Parent contactReportParent;
+        contactReportParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/ContactReport.FXML")));
+        Scene contactReportScene  = new Scene(contactReportParent);
+        Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        app_stage.setScene(contactReportScene);
+        app_stage.show();
+    }
+
     /**
      *go to the appointment view table
      * @param event view appointment button clicked
@@ -66,24 +75,39 @@ public class MainMenuController  {
         app_stage.show();
 
     }
+    @FXML private void reportAppointmentClick(ActionEvent event) throws IOException{
+        Parent appointmentReportParent;
+        appointmentReportParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/AppointmentReport.FXML")));
+        Scene appointmentReportScene = new Scene(appointmentReportParent);
+        Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        app_stage.setScene(appointmentReportScene);
+        app_stage.show();
+    }
 
     Integer thisUserID;
 
     public void transferUserData(String uName, Integer uid) {
+
+
         currentUser.setText(uName);
         thisUserID = uid;
         ObservableList<Appointment> appointments = AppointmentDB.userAppsWithin15(thisUserID);
-        for (Appointment b: appointments){
-            System.out.println(b.getTitle());
-        }
+        Alert alert = new Alert (Alert.AlertType.INFORMATION);
+
         if(appointments.size() > 0){
-            Alert alert = new Alert (Alert.AlertType.INFORMATION);
+
             alert.setTitle("Upcoming appointments in next 15 minutes");
             String alertContent = "";
             for(Appointment a:appointments){
-                alertContent = alertContent.concat(a.getTitle() + "\n");
+                alertContent = alertContent.concat("ID: "+a.getAppointmentID().toString()+
+                        " Start: "+a.getStartTime().toLocalDateTime().toLocalTime() +" End: "+ a.getEndTime().toLocalDateTime().toLocalTime()+"\n");
             }
             alert.setContentText(alertContent);
+            alert.showAndWait();
+        }
+        else{
+            alert.setTitle("No upcoming appointments");
+            alert.setContentText(uName+" you have no upcoming appointments within 15 minutes");
             alert.showAndWait();
         }
     }

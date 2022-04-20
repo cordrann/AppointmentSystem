@@ -27,12 +27,20 @@
             </font>
         </Label>
         <Button fx:id="customerMenuButton" layoutX="103.0" layoutY="99.0" mnemonicParsing="false" onAction="#customerMenuClick" prefHeight="25.0" prefWidth="75.0" text="Menu" />
-      <HBox layoutX="82.0" layoutY="305.0" prefHeight="35.0" prefWidth="277.0" spacing="10.0">
+      <HBox layoutX="131.0" layoutY="335.0" prefHeight="35.0" prefWidth="277.0" spacing="10.0">
          <children>
             <Label prefHeight="17.0" prefWidth="75.0" text="Current User :" />
             <Label fx:id="currentUser" prefHeight="17.0" prefWidth="141.0" />
          </children>
       </HBox>
+      <Label layoutX="82.0" layoutY="229.0" text="Reports">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+    <Button layoutX="100.0" layoutY="264.0" mnemonicParsing="false" onAction="#reportAppointmentClick" prefHeight="25.0" prefWidth="206.0" text="Appointments by type/month" />
+      <Button layoutX="97.0" layoutY="300.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="212.0" text="Customers by Country" />
+      <Button layoutX="322.0" layoutY="264.0" mnemonicParsing="false" onAction="#reportContactClick" prefHeight="25.0" prefWidth="218.0" text="Contact Schedules" />
     </children>
 
 </AnchorPane>

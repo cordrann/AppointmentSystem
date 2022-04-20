@@ -203,7 +203,7 @@ public class CustomerMenuController implements Initializable {
             }
             else if (option.get() ==ButtonType.OK){
                 CustomerDB.deleteCustomer(selectedCustomer.getCustomerID());
-                errorLabel.setText("Customer deleted");
+                errorLabel.setText("Customer "+selectedCustomer.getCustomerName()+" deleted");
                 clear();
                 tablePopulate();
             }

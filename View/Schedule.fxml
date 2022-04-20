@@ -1,36 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="783.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="584.0" prefWidth="783.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ScheduleController">
     <children>
-        <TableView layoutX="14.0" layoutY="53.0" prefHeight="512.0" prefWidth="762.0">
+        <TableView fx:id="appointmentTable" layoutX="14.0" layoutY="53.0" prefHeight="473.0" prefWidth="762.0">
             <columns>
-                <TableColumn fx:id="appIdColumn" prefWidth="62.0" text="Appointment ID" />
+                <TableColumn fx:id="startColumn" prefWidth="142.0" text="Start Date/Time" />
+                <TableColumn fx:id="endColumn" prefWidth="129.0" text="End Date/Time" />
+                <TableColumn fx:id="aidColumn" prefWidth="62.0" text="Appointment ID" />
                 <TableColumn fx:id="titleColumn" prefWidth="39.0" text="Title" />
-                <TableColumn fx:id="descColumn" prefWidth="71.0" text="Description" />
-                <TableColumn fx:id="locColumn" prefWidth="75.0" text="Location" />
-                <TableColumn fx:id="conColumn" prefWidth="53.0" text="Contact" />
+                <TableColumn fx:id="descriptionColumn" prefWidth="71.0" text="Description" />
+                <TableColumn fx:id="locationColumn" prefWidth="75.0" text="Location" />
+                <TableColumn fx:id="contactColumn" prefWidth="53.0" text="Contact" />
                 <TableColumn fx:id="typeColumn" prefWidth="60.0" text="Type" />
-                <TableColumn fx:id="startColumn" prefWidth="100.0" text="Start Date/Time" />
-                <TableColumn fx:id="endColumn" prefWidth="102.0" text="End Date/Time" />
-                <TableColumn fx:id="cidColumn" prefWidth="89.0" text="Customer_ID" />
-                <TableColumn fx:id="uidColumn" prefWidth="109.0" text="User_ID" />
+                <TableColumn fx:id="cidColumn" prefWidth="78.0" text="Customer_ID" />
+                <TableColumn fx:id="uidColumn" prefWidth="51.0" text="User_ID" />
             </columns>
         </TableView>
-        <ComboBox fx:id="wkMonthCombo" layoutX="609.0" layoutY="14.0" prefWidth="150.0" promptText="Week or Month?" />
-        <DatePicker fx:id="appDatePicker" layoutX="418.0" layoutY="14.0" promptText="Starting Date" />
         <Label layoutX="14.0" layoutY="9.0" prefHeight="35.0" prefWidth="250.0" text="Appointment Schedule">
             <font>
                 <Font size="24.0" />
             </font>
         </Label>
+      <HBox layoutX="266.0" layoutY="12.0" prefHeight="35.0" prefWidth="411.0" spacing="20.0">
+         <children>
+              <DatePicker fx:id="startDatePicker" onAction="#datePickedOrRadioToggle" promptText="Starting Date" />
+            <RadioButton fx:id="weekButton" mnemonicParsing="false" onAction="#datePickedOrRadioToggle" selected="true" text="Week">
+               <toggleGroup>
+                  <ToggleGroup fx:id="weekmonth" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="monthButton" mnemonicParsing="false" onAction="#datePickedOrRadioToggle" text="Month" toggleGroup="$weekmonth" />
+         </children>
+      </HBox>
+      <Button layoutX="340.0" layoutY="545.0" mnemonicParsing="false" onAction="#backButtonClick" prefHeight="25.0" prefWidth="76.0" text="Back" />
     </children>
 </AnchorPane>

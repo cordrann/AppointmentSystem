@@ -147,12 +147,6 @@ public class AppointmentMenuController implements Initializable{
                                 break;
                             }
 
-                            //if (a.getStartTime().before(endStamp) && (a.getEndTime().after(endStamp)||a.getEndTime().equals(endStamp))){
-                            //  errorLabel.setText(overlap);
-                            //valid = false;
-                            //break;
-                            //}
-
 
                         }
 
@@ -161,6 +155,7 @@ public class AppointmentMenuController implements Initializable{
                                     type, startStamp, endStamp, customer.getCustomerID(), user.getUserID());
                             tablePopulate();
                             errorLabel.setText("");
+                            clear();
                         }
                     } else if (end.compareTo(start) <= 0) {
                         errorLabel.setText("The appointment must start before it ends");
@@ -229,6 +224,7 @@ public class AppointmentMenuController implements Initializable{
                                     type, startStamp, endStamp, customer.getCustomerID(), user.getUserID());
                             tablePopulate();
                             errorLabel.setText("");
+                            clear();
                         }
                     } else if (end.compareTo(start) <= 0) {
                         errorLabel.setText("The appointment must start before it ends");
@@ -298,7 +294,7 @@ public class AppointmentMenuController implements Initializable{
             errorLabel.setText("Please select a customer before trying to delete");
         }
         else{
-            confirmation.setHeaderText("Are you sure you would like to delete this customer?");
+            confirmation.setHeaderText("Are you sure you would like to delete this appointment?");
             confirmation.setContentText(selectedAppointment.getAppointmentID()+" "+ selectedAppointment.getTitle());
             Optional<ButtonType> option = confirmation.showAndWait();
             if(option.get() == null){
@@ -306,7 +302,7 @@ public class AppointmentMenuController implements Initializable{
             }
             else if (option.get() == ButtonType.OK){
                 AppointmentDB.deleteAppointment(selectedAppointment.getAppointmentID());
-                errorLabel.setText("Appointment deleted");
+                errorLabel.setText("Appointment " +selectedAppointment.getAppointmentID() +" of type "+selectedAppointment.getType() +" deleted");
                 clear();
                 tablePopulate();
             }

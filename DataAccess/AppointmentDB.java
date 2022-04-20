@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
@@ -213,4 +214,65 @@ public class AppointmentDB {
     }
 
 
+    public static ObservableList<Appointment> getTimeAppointments(LocalDate value, boolean selected) {
+        ObservableList<Appointment> appointments = FXCollections.observableArrayList();
+        Integer days;
+
+        if(selected){days = 7;}
+        else{days = 30;}
+
+        Timestamp valueTs = Timestamp.valueOf(value.atTime(0,0));
+
+        Timestamp range = Timestamp.valueOf(value.atTime(0,0).plusDays(days));
+
+        try{
+            String appointmentQuery = "Select * FROM Appointments WHERE Start > ? AND Start < ? ORDER BY Start";
+            PreparedStatement aQ = JDBC.getConnection().prepareStatement(appointmentQuery);
+            aQ.setTimestamp(1, valueTs);
+            aQ.setTimestamp(2, range);
+            ResultSet results = aQ.executeQuery();
+            while (results.next()){
+                Integer aid = results.getInt("Appointment_ID");
+                String title = results.getString("Title");
+                String description = results.getString("Description");
+                String location = results.getString("Location");
+                String type = results.getString("Type");
+                Timestamp start = results.getTimestamp("Start");
+                Timestamp end = results.getTimestamp("End");
+                Integer cuid = results.getInt("Customer_ID");
+                Integer uid = results.getInt("User_ID");
+                Integer coid = results.getInt("Contact_ID");
+                Appointment thisAppointment = new Appointment (aid, title, description, location, type,
+                        start, end, cuid, uid, coid);
+                appointments.add(thisAppointment);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return appointments;
+
+
+    }
+
+    public static Integer countAppointments(String type, Integer month) {
+        Integer appointments = 0;
+
+        try{
+            String appointmentQuery = "Select Count(*) FROM Appointments WHERE Type = ? AND Month(Start) = ? ";
+            PreparedStatement aQ = JDBC.getConnection().prepareStatement(appointmentQuery);
+            aQ.setString(1, type);
+            aQ.setInt(2, month);
+            ResultSet results = aQ.executeQuery();
+            results.next();
+
+            appointments = results.getInt(1);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return appointments;
+
+    }
 }

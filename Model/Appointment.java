@@ -92,7 +92,7 @@ public class Appointment {
         this.endTime = endTime;
     }
 
-    public int getCustomerID() {
+    public Integer getCustomerID() {
         return customerID;
     }
 
@@ -100,7 +100,7 @@ public class Appointment {
         this.customerID = customerID;
     }
 
-    public int getUserID() {
+    public Integer getUserID() {
         return userID;
     }
 
@@ -108,7 +108,7 @@ public class Appointment {
         this.userID = userID;
     }
 
-    public int getContactID() {
+    public Integer getContactID() {
         return contactID;
     }
 
