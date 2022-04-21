@@ -23,7 +23,6 @@ import java.net.URL;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class LoginScreenController implements Initializable{
@@ -104,7 +103,7 @@ public class LoginScreenController implements Initializable{
 
            //if username or password are invalid print error indicating so
           try {
-              if (LoginDB.loginCredentials(uName, pword) == false) {
+              if (LoginDB.loginCredentialsValid(uName, pword) == false) {
                   loginError.setText(errorLang.getString("falseLoginKey"));
                   printToFile(uName+" failed to login at " +
                           ZonedDateTime.now().withZoneSameInstant(ZoneId.of("UTC")) + "\n");

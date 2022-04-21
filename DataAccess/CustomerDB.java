@@ -1,3 +1,6 @@
+/**
+ * @author Andrew Stowe
+ */
 package DataAccess;
 
 import Database.JDBC;
@@ -10,6 +13,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CustomerDB {
+    /**
+     * inserts a customer into the database
+     * @param name name of the customer
+     * @param address customers street address
+     * @param postal customers postal code
+     * @param phone customers phone number
+     * @param state customers state or province
+     */
     public static void insertCustomer(String name, String address, String postal, String phone, String state) {
 
         int divisionID;
@@ -42,6 +53,10 @@ public class CustomerDB {
 
     }
 
+    /**
+     * get all the customers from the database
+     * @return a list of all customers
+     */
     public static ObservableList<Customer> getAllCustomers(){
 
         ObservableList<Customer> customers = FXCollections.observableArrayList();
@@ -69,6 +84,16 @@ public class CustomerDB {
 
         return customers;
     }
+
+    /**
+     * update a customer in the database
+     * @param cid id of customer being updated
+     * @param name name of customer
+     * @param address customer street address
+     * @param postal customer postal code
+     * @param phone customer phone number
+     * @param state customer state/province
+     */
 
     public static void updateCustomer(Integer cid, String name, String address, String postal, String phone, String state) {
 
@@ -102,6 +127,10 @@ public class CustomerDB {
 
     }
 
+    /**
+     * deletes a customer from the database
+     * @param cid the id of the customer to be deleted
+     */
 
     public static void deleteCustomer(Integer cid) {
         try{
@@ -118,6 +147,12 @@ public class CustomerDB {
             e.printStackTrace();
         }
     }
+
+    /**
+     * get a specific customer
+     * @param customerID the id of the customer you are looking for
+     * @return the customer
+     */
 
     public static Customer getThisCustomer(Integer customerID) {
         try{

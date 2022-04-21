@@ -9,10 +9,19 @@ public class Customer {
     private String address;
     private String postalCode;
     private String phone;
-    private int divisionID;
     private String division;
     private String country;
 
+    /**
+     * creates a new customer object based on information input
+     * @param customerID ID of the customer
+     * @param customerName name of the customer
+     * @param address street address of the customer
+     * @param postalCode postal code of the customer
+     * @param phone phone number of customer
+     * @param division state/province of the customer
+     * @param country country of the customer
+     */
     public Customer(Integer customerID, String customerName, String address, String postalCode, String phone, String division, String country) {
         this.customerID = customerID;
         this.customerName = customerName;
@@ -23,72 +32,58 @@ public class Customer {
         this.country = country;
     }
 
+    /**
+     * get the customer's state/province
+     * @return the customer's state/province
+     */
     public String getDivision() {
         return division;
     }
 
-    public void setDivision(String division) {
-        this.division = division;
-    }
-
+    /**
+     * get the customer's country
+     * @return the customer's country
+     */
     public String getCountry() {
         return country;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
+    /**
+     * get the customer's ID
+     * @return the customer's ID
+     */
     public Integer getCustomerID() {
         return customerID;
     }
 
-    public void setCustomerID(Integer customerID) {
-        this.customerID = customerID;
-    }
-
+    /**
+     * get the customer's name
+     * @return name of customer
+     */
     public String getCustomerName() {
         return customerName;
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
-
+    /**
+     * get the customer's street address
+     * @return street address of customer
+     */
     public String getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getPostalCode() {
-        return postalCode;
-    }
-
-    public void setPostalCode(String postalCode) {
-        this.postalCode = postalCode;
-    }
-
+    /**
+     * get the customer's phone number
+     * @return phone number of customer
+     */
     public String getPhone() {
         return phone;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-
-    public int getDivisionID() {
-        return divisionID;
-    }
-
-    public void setDivisionID(int divisionID) {
-        this.divisionID = divisionID;
-    }
-
-
+    /**
+     * change the toString method of the customer object to display different information
+     * @return the updated string
+     */
     @Override public String toString(){
         return(customerName);
     }

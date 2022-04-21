@@ -8,7 +8,11 @@ import javafx.stage.Stage;
 import java.util.Locale;
 
 public class Main extends Application {
-
+    /**
+     * Load the first screen for the application
+     * @param primaryStage
+     * @throws Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("View/LoginScreen.fxml"));
@@ -16,6 +20,10 @@ public class Main extends Application {
         primaryStage.show();
     }
 
+    /**
+     * main method, initiates and closes database connection
+     * @param args
+     */
 
     public static void main(String[] args) {
         //Locale.setDefault(new Locale("fr"));

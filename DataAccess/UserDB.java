@@ -1,3 +1,6 @@
+/**
+ * @author Andrew Stowe
+ */
 package DataAccess;
 
 import Database.JDBC;
@@ -11,6 +14,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserDB {
+
+    /**
+     * get a list of all users from the database
+     * @return the list of all users
+     */
     public static ObservableList<User> getAllUsers() {
         ObservableList<User> users = FXCollections.observableArrayList();
 
@@ -33,6 +41,11 @@ public class UserDB {
         return users;
     }
 
+    /**
+     * get a specific user from the database
+     * @param userID the id of the user
+     * @return the user
+     */
 
     public static User getThisUser(Integer userID) {
         try{

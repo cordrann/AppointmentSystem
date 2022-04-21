@@ -21,6 +21,19 @@ public class Appointment {
     private Integer userID;
     private Integer contactID;
 
+    /**
+     * Makes a new appointment with the given input
+     * @param appointmentID id of appointment
+     * @param title title of appointment
+     * @param description description of appointment
+     * @param location location of appointment
+     * @param type type of appointment
+     * @param startTime start date and time of appointment
+     * @param endTime end date and time of appointment
+     * @param customerID id of customer who has appointment
+     * @param userID id of user who owns appointment
+     * @param contactID id of contact for appointment
+     */
     public Appointment(Integer appointmentID, String title, String description, String location, String type,
                        Timestamp startTime, Timestamp endTime, Integer customerID,
                        Integer userID, Integer contactID) {
@@ -36,84 +49,92 @@ public class Appointment {
         this.contactID = contactID;
     }
 
+    /**
+     * get and appointment id from an appointment
+     * @return the id of the appointment
+     */
     public Integer getAppointmentID() {
         return appointmentID;
     }
 
-    public void setAppointmentID(Integer appointmentID) {
-        this.appointmentID = appointmentID;
-    }
-
+    /**
+     * get the title of the appointment
+     * @return the title
+     */
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
+    /**
+     * get the description of the appointment
+     * @return the description
+     */
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
+    /**
+     * get the location of the appointment
+     * @return the location
+     */
     public String getLocation() {
         return location;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
+    /**
+     * get the type of appointment
+     * @return the type
+     */
     public String getType() {
         return type;
     }
 
+    /**
+     * set the type of appointment
+     * @param type the type to set to
+     */
     public void setType(String type) {
         this.type = type;
     }
 
+    /**
+     * get the start date/time of the appointment
+     * @return the start date/time
+     */
     public Timestamp getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Timestamp startTime) {
-        this.startTime = startTime;
-    }
-
+    /**
+     * get the end date/time of the appointment
+     * @return the end date/time
+     */
     public Timestamp getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Timestamp endTime) {
-        this.endTime = endTime;
-    }
-
+    /**
+     * get the customer id for the appointment
+     * @return id of customer who has appointment
+     */
     public Integer getCustomerID() {
         return customerID;
     }
 
-    public void setCustomerID(Integer customerID) {
-        this.customerID = customerID;
-    }
-
+    /**
+     * get the user id for the appointment
+     * @return id of user who owns appointment
+     */
     public Integer getUserID() {
         return userID;
     }
 
-    public void setUserID(Integer userID) {
-        this.userID = userID;
-    }
-
+    /**
+     * get the contact id for the appointment
+     * @return the contact id for the appointment
+     */
     public Integer getContactID() {
         return contactID;
-    }
-
-    public void setContactID(Integer contactID) {
-        this.contactID = contactID;
     }
 
 

@@ -1,3 +1,6 @@
+/**
+ * @author Andrew Stowe
+ */
 package DataAccess;
 
 import Database.JDBC;
@@ -12,6 +15,10 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 
 public class ContactDB {
+    /**
+     * gets all the contacts from the database
+     * @return a list of all the contacts
+     */
     public static ObservableList<Contact> getAllContacts() {
         ObservableList<Contact> contacts = FXCollections.observableArrayList();
 
@@ -34,6 +41,11 @@ public class ContactDB {
         return contacts;
     }
 
+    /**
+     * gets a specific contact from the database
+     * @param contactID id of the contact to get
+     * @return the contact that is retrieved
+     */
     public static Contact getThisContact(Integer contactID) {
         try{
             String contactQuery = "Select * FROM Contacts WHERE Contact_ID = ? ";

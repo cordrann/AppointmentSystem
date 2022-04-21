@@ -1,3 +1,6 @@
+/**
+ * @author Andrew Stowe
+ */
 package DataAccess;
 
 import Database.JDBC;
@@ -17,6 +20,18 @@ import java.time.ZonedDateTime;
 
 public class AppointmentDB {
 
+    /**
+     * Inserts an appointment into the database
+     * @param newTitle Appointment Title
+     * @param description Appointment Description
+     * @param location Appointment Location
+     * @param contactID Appointment contact ID
+     * @param type Appointment type
+     * @param start Appointment start date/time
+     * @param end Appointment end date/time
+     * @param customerID Appointment customer ID
+     * @param userID Appointment User ID
+     */
     public static void insertAppointment(String newTitle, String description, String location, Integer contactID,
                                          String type, Timestamp start, Timestamp end, Integer customerID, Integer userID) {
 
@@ -45,6 +60,10 @@ public class AppointmentDB {
 
     }
 
+    /**
+     * gets all the appointments from the database
+     * @return returns a list of all appointments
+     */
     public static ObservableList<Appointment> getAllAppointments() {
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
 
@@ -74,6 +93,11 @@ public class AppointmentDB {
         return appointments;
     }
 
+    /**
+     * get all appointments for a specific customer
+     * @param customerID the id of the customer whose appointments you are looking for
+     * @return this list of appointments for the customer
+     */
     public static ObservableList<Appointment> getCustomerAppointments(Integer customerID) {
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
 
@@ -105,6 +129,10 @@ public class AppointmentDB {
 
     }
 
+    /**
+     * deletes an appointment from the database
+     * @param aid the id of the appointment to delete
+     */
     public static void deleteAppointment(Integer aid) {
         try{
             String deleteA = "DELETE FROM Appointments WHERE Appointment_ID = ?";
@@ -118,6 +146,12 @@ public class AppointmentDB {
 
     }
 
+    /**
+     * get a list of all a customers appointments besides the one which is being updated
+     * @param customerID The id of the customer who has the appointments
+     * @param appointmentID The id of the appointment being updated
+     * @return List of all the customers other appointments
+     */
     public static ObservableList<Appointment> getCustomerOtherAppointments(Integer customerID, Integer appointmentID) {
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
 
@@ -149,6 +183,19 @@ public class AppointmentDB {
         return appointments;
     }
 
+    /**
+     * Updates an appointment in the DB based on input
+     * @param aid id of appointment being updated
+     * @param newTitle title of appointment
+     * @param description description of appointment
+     * @param location location of appointment
+     * @param contactID contact id of appointment
+     * @param type type of appointment
+     * @param startStamp start date/time of appointment
+     * @param endStamp end date/time of appointment
+     * @param customerID ID of the customer who has the appointment
+     * @param userID ID of the user who has the appointment
+     */
     public static void updateAppointment (Integer aid, String newTitle, String description, String location,
                                          Integer contactID, String type, Timestamp startStamp, Timestamp endStamp,
                                          Integer customerID, Integer userID) {
@@ -180,6 +227,11 @@ public class AppointmentDB {
 
     }
 
+    /**
+     * checks the database for appointments within 15 minutes for a specific user
+     * @param thisUserID the user who owns the appointments
+     * @return list of all appointments within 15 minutes
+     */
 
     public static ObservableList<Appointment> userAppsWithin15(Integer thisUserID) {
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
@@ -214,6 +266,12 @@ public class AppointmentDB {
     }
 
 
+    /**
+     * gets a list of appointments within 7 days or 30 days of a date based on week or month selection
+     * @param value start date for the week or month time frame
+     * @param selected true if week is selected, setting the range to 7 days
+     * @return list of all appointments in the given window
+     */
     public static ObservableList<Appointment> getTimeAppointments(LocalDate value, boolean selected) {
         ObservableList<Appointment> appointments = FXCollections.observableArrayList();
         Integer days;
@@ -255,6 +313,12 @@ public class AppointmentDB {
 
     }
 
+    /**
+     * Counts the number of appointments with a given type and month
+     * @param type the type of appointment
+     * @param month the number index of the month selected
+     * @return the number of appointments meeting the criteria
+     */
     public static Integer countAppointments(String type, Integer month) {
         Integer appointments = 0;
 

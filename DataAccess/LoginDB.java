@@ -1,15 +1,22 @@
+/**
+ * @author Andrew Stowe
+ */
 package DataAccess;
 
 import Database.JDBC;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class LoginDB {
-
-    public static boolean loginCredentials(String userName, String password) {
+    /**
+     * Checks the database for the username and password in the same row
+     * @param userName the username entered by the user
+     * @param password the password entered by the user
+     * @return true if login is accepted, false if it is not
+     */
+    public static boolean loginCredentialsValid(String userName, String password) {
 
 
         try {
@@ -32,6 +39,12 @@ public class LoginDB {
 
     }
 
+    /**
+     * gets the user id from the database
+     * @param uName the username of the user
+     * @param pword the password of the user
+     * @return the user id
+     */
     public static Integer getUserID(String uName, String pword) {
         try {
             String query = ("SELECT User_ID FROM users WHERE User_Name =\"" + uName + "\" AND Password = \"" + pword + "\"");
