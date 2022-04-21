@@ -41,6 +41,7 @@
                </toggleGroup>
             </RadioButton>
             <RadioButton fx:id="monthButton" mnemonicParsing="false" onAction="#datePickedOrRadioToggle" text="Month" toggleGroup="$weekmonth" />
+            <RadioButton fx:id="allButton" mnemonicParsing="false" onAction="#showAllClick" text="Show All" toggleGroup="$weekmonth" />
          </children>
       </HBox>
       <Button layoutX="340.0" layoutY="545.0" mnemonicParsing="false" onAction="#backButtonClick" prefHeight="25.0" prefWidth="76.0" text="Back" />

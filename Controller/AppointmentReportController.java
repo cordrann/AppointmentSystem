@@ -1,3 +1,6 @@
+/**
+ * @author Andrew Stowe
+ */
 package Controller;
 
 import DataAccess.AppointmentDB;
@@ -29,6 +32,10 @@ public class AppointmentReportController implements Initializable {
     @FXML
     private Label numberLabel;
 
+    /**
+     *
+     * @param event generate button is clicked, generating a report based on the combo boxes
+     */
     @FXML
     private void generateButtonClick (ActionEvent event){
 
@@ -41,6 +48,11 @@ public class AppointmentReportController implements Initializable {
 
     }
 
+    /**
+     *
+     * @param event click the button to go back to the main menu
+     * @throws IOException
+     */
     @FXML
     private void backButtonClick(ActionEvent event) throws IOException {
         Parent customerMenuParent;
@@ -52,7 +64,11 @@ public class AppointmentReportController implements Initializable {
 
     }
 
-
+    /**
+     * populate the combo boxes
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ObservableList<String> types = FXCollections.observableArrayList();

@@ -1,3 +1,8 @@
+/**
+ * @author Andrew Stowe
+ */
+
+
 package Controller;
 
 import DataAccess.*;
@@ -93,16 +98,16 @@ public class AppointmentMenuController implements Initializable{
     Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
 
     /**
-     * add appointment to the database after checking for valid input
+     * add/update appointment to the database after checking for valid input
      *
-     * @param event add button is clicked
+     * @param event save button is clicked
      * @throws IOException throws input/output exceptions
      */
     @FXML
     private void saveButtonClick(ActionEvent event) throws IOException {
-
+        //check if aid is populated to determine if new or update
         if (aidField.getText() == "") {
-
+            //check for input in text boxes
             if (titleField.getText() == "" || descField.getText() == "" || locationField.getText() == "") {
                 errorLabel.setText("Missing input value, please try again");
             } else {
@@ -125,12 +130,14 @@ public class AppointmentMenuController implements Initializable{
                     Timestamp startStamp = Timestamp.from(Instant.from(utcStart));
                     Timestamp endStamp = Timestamp.from(Instant.from(utcEnd));
 
+                    //make sure the start time is in the future and the end is after start
                     if (end.compareTo(start) > 0 && start.compareTo(ZonedDateTime.now()) > 0) {
                         boolean valid = true;
                         String overlap = "There is an overlapping appointment, please select a different time";
 
                         ObservableList<Appointment> appointments = AppointmentDB.getCustomerAppointments(customer.getCustomerID());
 
+                        //loop through all appointments and check for overlaps
                         for (Appointment a : appointments) {
 
                             if ((a.getStartTime().after(startStamp) || a.getStartTime().equals(startStamp)) &&
@@ -150,6 +157,7 @@ public class AppointmentMenuController implements Initializable{
 
                         }
 
+                        //if the appointment is valid insert it
                         if (valid == true) {
                             AppointmentDB.insertAppointment(newTitle, description, location, contact.getContactID(),
                                     type, startStamp, endStamp, customer.getCustomerID(), user.getUserID());
@@ -170,8 +178,10 @@ public class AppointmentMenuController implements Initializable{
             }
 
 
-        } else {
-
+        }
+        //if the aid field is populated try to update rather than insert
+        else {
+            //make sure all text fields are populated
             if (titleField.getText() == "" || descField.getText() == "" || locationField.getText() == "") {
                 errorLabel.setText("Missing input value, please try again");
             } else {
@@ -195,12 +205,14 @@ public class AppointmentMenuController implements Initializable{
                     Timestamp startStamp = Timestamp.from(Instant.from(utcStart));
                     Timestamp endStamp = Timestamp.from(Instant.from(utcEnd));
 
+                    //make sure end is after start and start is in the future
                     if (end.compareTo(start) > 0 && start.compareTo(ZonedDateTime.now()) > 0) {
                         boolean valid = true;
                         String overlap = "There is an overlapping appointment, please select a different time";
 
                         ObservableList<Appointment> appointments = AppointmentDB.getCustomerOtherAppointments(customer.getCustomerID(), aid);
 
+                        //loop through other appointments and make sure no overlaps
                         for (Appointment a : appointments) {
 
                             if ((a.getStartTime().after(startStamp) || a.getStartTime().equals(startStamp)) &&
@@ -219,6 +231,7 @@ public class AppointmentMenuController implements Initializable{
 
                         }
 
+                        //if the appointment is valid update in the database
                         if (valid == true) {
                             AppointmentDB.updateAppointment(aid, newTitle, description, location, contact.getContactID(),
                                     type, startStamp, endStamp, customer.getCustomerID(), user.getUserID());
@@ -240,6 +253,10 @@ public class AppointmentMenuController implements Initializable{
         }
     }
 
+    /**
+     *
+     * @param Clear the input fields when the clear button is clicked
+     */
     @FXML private void clearButtonClick(ActionEvent event) {
         clear();
     }
@@ -248,7 +265,7 @@ public class AppointmentMenuController implements Initializable{
 
 
     /**
-     * update customer in the database after checking for valid input
+     * load the selected appointment into the input fields
      *
      * @param event update button is clicked
      * @throws IOException throws input/output exceptions
@@ -279,8 +296,7 @@ public class AppointmentMenuController implements Initializable{
     }
 
     /**
-     * delete a customer from the database if one is selected
-     * after deleting all related appointments
+     * delete selected appointment from the database after displaying a warning
      *
      * @param event delete button is clicked
      * @throws IOException throws input/output exceptions
@@ -289,10 +305,11 @@ public class AppointmentMenuController implements Initializable{
     private void deleteButtonClick(ActionEvent event) throws IOException {
         Appointment selectedAppointment = null;
         selectedAppointment = appointmentTable.getSelectionModel().getSelectedItem();
-
+        //make sure appointment is actually selected
         if(selectedAppointment == null){
             errorLabel.setText("Please select a customer before trying to delete");
         }
+        //display warning and if they click ok delete appointment
         else{
             confirmation.setHeaderText("Are you sure you would like to delete this appointment?");
             confirmation.setContentText(selectedAppointment.getAppointmentID()+" "+ selectedAppointment.getTitle());
@@ -313,6 +330,9 @@ public class AppointmentMenuController implements Initializable{
         }
     }
 
+    /**
+     * Clears the input fields of any data
+     */
    private void clear() {
         try{
             aidField.setText("");
@@ -354,6 +374,9 @@ public class AppointmentMenuController implements Initializable{
 
     }
 
+    /**
+     * put all the appointment data from the database in the table view
+     */
 
     private void tablePopulate(){
         ObservableList<Appointment> appointments = AppointmentDB.getAllAppointments();
@@ -375,6 +398,10 @@ public class AppointmentMenuController implements Initializable{
 
     }
 
+    /**
+     *
+     * @param event when a date is picked populate the time combo boxes with local date times
+     */
     @FXML
     private void datePicked(ActionEvent event) {
 
@@ -404,9 +431,11 @@ public class AppointmentMenuController implements Initializable{
     }
 
 
-
-
-
+    /**
+     * set the table to the initial data and populate all the combo boxes
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         tablePopulate();

@@ -1,3 +1,6 @@
+/**
+ * @author Andrew Stowe
+ */
 package Controller;
 
 import DataAccess.AppointmentDB;
@@ -38,6 +41,12 @@ public class ContactReportController implements Initializable {
 
     ObservableList<Appointment> allAppointments = AppointmentDB.getAllAppointments();
 
+    /**
+     *    This method contains one of my lambda expressions, this lambda expression helps to
+     *    filter the list by comparing the contacts ids and returning true if they match
+     * @param event If the combo box is changed alter the table to reflect that
+     *
+     */
     @FXML
     private void contactBoxChange(ActionEvent event){
         if(contactBox.getValue()!= null){
@@ -62,6 +71,11 @@ public class ContactReportController implements Initializable {
 
     }
 
+    /**
+     * go back to the main screen
+     * @param event back button is clicked
+     * @throws IOException
+     */
     @FXML
     private void backButtonClick(ActionEvent event) throws IOException {
         Parent customerMenuParent;
@@ -73,7 +87,11 @@ public class ContactReportController implements Initializable {
 
     }
 
-
+    /**
+     * populate the combo box
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ObservableList<Contact> contacts = ContactDB.getAllContacts();

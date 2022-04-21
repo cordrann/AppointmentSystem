@@ -1,3 +1,6 @@
+/**
+ * @author Andrew Stowe
+ */
 package Controller;
 
 import DataAccess.AppointmentDB;
@@ -39,6 +42,7 @@ public class ScheduleController implements Initializable {
     @FXML private DatePicker startDatePicker;
     @FXML private RadioButton weekButton;
     @FXML private RadioButton monthButton;
+    @FXML private RadioButton allButton;
 
     @FXML private TableView<Appointment> appointmentTable;
     @FXML private TableColumn<Appointment, Integer> aidColumn;
@@ -52,6 +56,11 @@ public class ScheduleController implements Initializable {
     @FXML private TableColumn<Appointment, Integer> cidColumn;
     @FXML private TableColumn<Appointment, Integer> uidColumn;
 
+    /**
+     * Go back to the main menu screen
+     * @param event back button clicked
+     * @throws IOException
+     */
     @FXML
     private void backButtonClick(ActionEvent event) throws IOException {
         Parent customerMenuParent;
@@ -63,6 +72,10 @@ public class ScheduleController implements Initializable {
 
     }
 
+    /**
+     * populate the table with a list of appointments
+     * @param appointments the list of appointments the table will be populated with
+     */
     private void tablePopulate(ObservableList<Appointment> appointments){
 
         if(appointments.isEmpty()==false) {
@@ -86,15 +99,43 @@ public class ScheduleController implements Initializable {
 
     }
 
+    /**
+     * Queries the database based on the selected date and radio button then populates the table
+     * @param event date is changed or either radio button is toggled
+     */
     @FXML private void datePickedOrRadioToggle (ActionEvent event){
+        if(allButton.isSelected()){
+            allButton.setSelected(false);
+            weekButton.setSelected(true);
+        }
+
         if(startDatePicker.getValue() != null){
             ObservableList<Appointment> appointments = AppointmentDB.getTimeAppointments(startDatePicker.getValue(), weekButton.isSelected());
 
             tablePopulate(appointments);
         }
+
+        else{
+            ObservableList<Appointment> appointments = AppointmentDB.getTimeAppointments(LocalDate.now(), weekButton.isSelected());
+
+            tablePopulate(appointments);
+        }
     }
 
+    /**
+     * Shows all appointments if show all button is toggled
+     * @param event
+     */
+    @FXML private void showAllClick(ActionEvent event){
 
+        tablePopulate(AppointmentDB.getAllAppointments());
+    }
+
+    /**
+     * Sets the base table to a one-week view starting from today
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

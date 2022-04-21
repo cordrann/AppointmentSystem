@@ -1,3 +1,7 @@
+/**
+ * @author Andrew Stowe
+ */
+
 package Controller;
 
 import DataAccess.AppointmentDB;
@@ -52,6 +56,11 @@ public class MainMenuController  {
 
     }
 
+    /**
+     * go to the screen for the contact report
+     * @param event contact report button clicked
+     * @throws IOException
+     */
     @FXML private void reportContactClick(ActionEvent event) throws IOException{
         Parent contactReportParent;
         contactReportParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/ContactReport.FXML")));
@@ -75,6 +84,12 @@ public class MainMenuController  {
         app_stage.show();
 
     }
+
+    /**
+     * Go to the screen for the report about appointments
+     * @param event appointment report button clicked
+     * @throws IOException
+     */
     @FXML private void reportAppointmentClick(ActionEvent event) throws IOException{
         Parent appointmentReportParent;
         appointmentReportParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/AppointmentReport.FXML")));
@@ -83,6 +98,12 @@ public class MainMenuController  {
         app_stage.setScene(appointmentReportScene);
         app_stage.show();
     }
+
+    /**
+     * go to the screen for the report about customers
+     * @param event customer report button clicked
+     * @throws IOException
+     */
     @FXML private void reportCustomerClick(ActionEvent event) throws IOException{
         Parent customerReportParent;
         customerReportParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/CustomerReport.FXML")));
@@ -94,6 +115,12 @@ public class MainMenuController  {
 
     Integer thisUserID;
 
+
+    /**
+     * gets data from the login screen then shows an alert about whether user has appointments within 15 minutes
+     * @param uName user name passed from login screen
+     * @param uid user id passed from login screen
+     */
     public void transferUserData(String uName, Integer uid) {
 
 

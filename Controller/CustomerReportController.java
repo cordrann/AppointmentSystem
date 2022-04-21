@@ -1,3 +1,7 @@
+/**
+ * @author Andrew Stowe
+ */
+
 package Controller;
 
 import DataAccess.CountriesDB;
@@ -40,6 +44,14 @@ public class CustomerReportController implements Initializable {
 
     ObservableList<Customer> allCustomers = CustomerDB.getAllCustomers();
 
+    /**
+     * This method contains one of my lambda expressions, this lambda expression helps to
+     * filter the list by comparing the country selected to the country in the list and returning true
+     * if they are the same
+     *
+     * @param event when the country box is changed filter the list and display in table
+     *
+     */
     @FXML private void countryBoxChange (ActionEvent event){
         if (countryBox.getSelectionModel().getSelectedItem() != null){
             String country = countryBox.getValue().toString();
@@ -61,6 +73,11 @@ public class CustomerReportController implements Initializable {
         }
     }
 
+    /**
+     * Go to the main menu screen
+     * @param event back button click
+     * @throws IOException
+     */
 
     @FXML
     private void backButtonClick(ActionEvent event) throws IOException {
@@ -73,6 +90,11 @@ public class CustomerReportController implements Initializable {
 
     }
 
+    /**
+     * Populate the country combo box
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ObservableList<String> countries = CountriesDB.getAllCountries();

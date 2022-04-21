@@ -1,6 +1,9 @@
+/**
+ * @author Andrew Stowe
+ */
 package Controller;
 
-//import Main.JDBC;
+
 import DataAccess.LoginDB;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -40,15 +43,17 @@ public class LoginScreenController implements Initializable{
     /**label text for login errors*/
     @FXML private Label zoneLabel;
 
+
     @FXML private Label userNameLabel;
 
     @FXML private Label passwordLabel;
 
 
-
-
-
-
+    /**
+     * Prints a string to the login_activity file
+     * @param output the string to print to the file
+     * @throws IOException
+     */
     private void printToFile(String output) throws IOException {
         File outputFile = new File("../AndrewStoweAppointmentSystem/login_activity.txt");
         PrintWriter loginWriter = new PrintWriter(new FileWriter(outputFile, true));
@@ -59,7 +64,7 @@ public class LoginScreenController implements Initializable{
     /**
      * attempt to log in when this button is pressed
      * @param event when the login button is clicked
-     * @throws IOException throws input output exceptions
+     * @throws IOException
      */
 
     @FXML private void loginClick(ActionEvent event) throws IOException {
@@ -136,13 +141,14 @@ public class LoginScreenController implements Initializable{
     }
 
 
-
-
+    /**
+     * Get the users locale and translate login screen based on language
+     * Display the users ZoneID
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        /**
-         *  Get the current user's locale setting and store in a variable
-         */
          ZoneId userZone = ZoneId.systemDefault();
          Locale lang = Locale.getDefault();
 

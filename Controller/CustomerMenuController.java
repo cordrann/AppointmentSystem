@@ -1,3 +1,6 @@
+/**
+ * @author Andrew Stowe
+ */
 package Controller;
 
 import DataAccess.CountriesDB;
@@ -27,7 +30,7 @@ import static java.lang.Integer.parseInt;
 
 public class CustomerMenuController implements Initializable {
     /**
-     * automatically generate field for display purposes only
+     * automatically generated, field for display purposes only
      */
     @FXML private TextField cidField;
 
@@ -93,15 +96,15 @@ public class CustomerMenuController implements Initializable {
      */
     @FXML
     private void saveButtonClick(ActionEvent event) throws IOException {
-
+        //if the customer id is blank try to insert, if populated update
         if(cidField.getText() == "") {
-
+            //check for input in text fields
             if(customerNameField.getText() == "" || addressField.getText()== "" || postalField.getText() == "" || phoneField.getText() == "") {
                 errorLabel.setText("Missing input value, please try again");
             }
             else {
                 try {
-                    //parse user input and put into variables
+                    //parse user input and put into variables then insert the customer
                     String newName = customerNameField.getText();
                     String newAddress = addressField.getText();
                     String newPostal = postalField.getText();
@@ -122,8 +125,9 @@ public class CustomerMenuController implements Initializable {
 
 
         }
-
+        //id field was populated so update
         else{
+            //make sure text fields aren't empty
             if(customerNameField.getText() == "" || addressField.getText()== "" || postalField.getText() == "" || phoneField.getText() == "") {
                 errorLabel.setText("Missing input value, please try again");
             }
@@ -148,6 +152,10 @@ public class CustomerMenuController implements Initializable {
         }
     }
 
+    /**
+     * clear the input fields when the clear button is clicked
+     * @param event
+     */
    @FXML private void clearButtonClicked(ActionEvent event) {
         clear();
    }
@@ -155,7 +163,7 @@ public class CustomerMenuController implements Initializable {
 
 
     /**
-     * update customer in the database after checking for valid input
+     * put selected customers data into input fields
      *
      * @param event update button is clicked
      * @throws IOException throws input/output exceptions
@@ -190,10 +198,11 @@ public class CustomerMenuController implements Initializable {
     private void deleteButtonClick(ActionEvent event) throws IOException {
         Customer selectedCustomer = null;
         selectedCustomer = customerTable.getSelectionModel().getSelectedItem();
-
+        //make sure customer is selected
         if(selectedCustomer == null){
             errorLabel.setText("Please select a customer before trying to delete");
         }
+        //show warning and then delete customer if confirmed
         else{
             confirmation.setHeaderText("Are you sure you would like to delete this customer?");
             confirmation.setContentText(selectedCustomer.getCustomerName());
@@ -214,6 +223,9 @@ public class CustomerMenuController implements Initializable {
         }
     }
 
+    /**
+     * Clears all input fields
+     */
     private void clear() {
         try{
             cidField.setText("");
@@ -250,6 +262,11 @@ public class CustomerMenuController implements Initializable {
 
     }
 
+    /**
+     *
+     * @param event When a country is selected populate the state box
+     * @throws IOException
+     */
     @FXML private void countrySelection(ActionEvent event) throws IOException {
         if(countryBox.getValue() != null) {
             String country = countryBox.getValue().toString();
@@ -258,6 +275,9 @@ public class CustomerMenuController implements Initializable {
         }
     }
 
+    /**
+     * populates the table view with all customers
+     */
     private void tablePopulate(){
         ObservableList<Customer> customers = CustomerDB.getAllCustomers();
 
@@ -275,7 +295,11 @@ public class CustomerMenuController implements Initializable {
 
     }
 
-
+    /**
+     * sets table to initial values and populates country box
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         tablePopulate();
