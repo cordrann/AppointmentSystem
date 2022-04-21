@@ -42,8 +42,14 @@ public class LoginScreenController implements Initializable{
     /**label text for login errors*/
     @FXML private Label zoneLabel;
 
-
+    /**
+     * label for username field
+     */
     @FXML private Label userNameLabel;
+
+    /**
+     * label for password field
+     */
 
     @FXML private Label passwordLabel;
 

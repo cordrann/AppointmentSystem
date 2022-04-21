@@ -38,22 +38,69 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class ScheduleController implements Initializable {
-
+    /**
+     * pick a start date to query from
+     */
     @FXML private DatePicker startDatePicker;
-    @FXML private RadioButton weekButton;
-    @FXML private RadioButton monthButton;
-    @FXML private RadioButton allButton;
 
+    /**
+     * select to look at a one-week view
+     */
+    @FXML private RadioButton weekButton;
+
+    /**
+     * select to look at a one-month(30 day) view
+     */
+    @FXML private RadioButton monthButton;
+    /**
+     * select to view all appointments
+     */
+    @FXML private RadioButton allButton;
+    /**
+     * table of appointments
+     */
     @FXML private TableView<Appointment> appointmentTable;
+    /**
+     * appointment id column in appointment table
+     */
     @FXML private TableColumn<Appointment, Integer> aidColumn;
+    /**
+     * appointment title column
+     */
     @FXML private TableColumn<Appointment, String> titleColumn;
+
+    /**
+     * appointment description column
+     */
     @FXML private TableColumn<Appointment, String> descriptionColumn;
+
+    /**
+     * appointment location column
+     */
     @FXML private TableColumn<Appointment, String> locationColumn;
+    /**
+     * appointment contact column
+     */
     @FXML private TableColumn<Appointment, String> contactColumn;
+    /**
+     * appointment type column
+     */
     @FXML private TableColumn<Appointment, String> typeColumn;
+    /**
+     * appointment start column
+     */
     @FXML private TableColumn<Appointment, LocalTime> startColumn;
+    /**
+     * appointment end column
+     */
     @FXML private TableColumn<Appointment, LocalTime> endColumn;
+    /**
+     * appointment customer id column
+     */
     @FXML private TableColumn<Appointment, Integer> cidColumn;
+    /**
+     * appointment user id column
+     */
     @FXML private TableColumn<Appointment, Integer> uidColumn;
 
     /**

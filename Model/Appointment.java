@@ -10,15 +10,45 @@ import java.sql.Timestamp;
 
 
 public class Appointment {
+    /**
+     * ID of this appointment
+     */
     private Integer appointmentID;
+    /**
+     * Title of this appointment
+     */
     private String title;
+    /**
+     * Description of this appointment
+     */
     private String description;
+    /**
+     * Location of this appointment
+     */
     private String location;
+    /**
+     * Type of this appointment
+     */
     private String type;
+    /**
+     * Start date/time of this appointment
+     */
     private Timestamp startTime;
+    /**
+     * End date/time of this appointment
+     */
     private Timestamp endTime;
+    /**
+     * Customer id for this appointment
+     */
     private Integer customerID;
+    /**
+     * User id for this appointment
+     */
     private Integer userID;
+    /**
+     *Contact id for this appointment
+     */
     private Integer contactID;
 
     /**

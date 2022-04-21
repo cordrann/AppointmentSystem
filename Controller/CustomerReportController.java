@@ -31,15 +31,29 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class CustomerReportController implements Initializable {
-
+    /**
+     * box to select country to report on
+     */
     @FXML private ComboBox countryBox;
-
+    /**
+     * label showing number of customers in a country
+     */
     @FXML private Label numberLabel;
-
+    /**
+     * table showing customers in a country
+     */
     @FXML private TableView<Customer> customerTable;
-
+    /**
+     * name column in customer table
+     */
     @FXML private TableColumn<Customer, String> nameColumn;
+    /**
+     * country column in customer table
+     */
     @FXML private TableColumn<Customer, String> countryColumn;
+    /**
+     * state column in customer table
+     */
     @FXML private TableColumn<Customer, String> stateColumn;
 
     ObservableList<Customer> allCustomers = CustomerDB.getAllCustomers();

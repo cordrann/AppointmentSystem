@@ -23,12 +23,22 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class AppointmentReportController implements Initializable {
+
+    /**
+     * appointment type box
+     */
     @FXML
     private ComboBox<String> typeBox;
 
+    /**
+     * appointment month box
+     */
     @FXML
     private ComboBox<String> monthBox;
 
+    /**
+     * number of appointments
+     */
     @FXML
     private Label numberLabel;
 

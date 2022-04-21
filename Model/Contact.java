@@ -1,8 +1,17 @@
 package Model;
 
 public class Contact {
+    /**
+     * contact id for this contact
+     */
     private Integer contactID;
+    /**
+     * name of this contact
+     */
     private String contactName;
+    /**
+     * email for this contact
+     */
     private String email;
 
     /**

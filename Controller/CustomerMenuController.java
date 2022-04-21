@@ -30,7 +30,7 @@ import static java.lang.Integer.parseInt;
 
 public class CustomerMenuController implements Initializable {
     /**
-     * automatically generated, field for display purposes only
+     * automatically generated customer id, field for display purposes only
      */
     @FXML private TextField cidField;
 
@@ -67,23 +67,60 @@ public class CustomerMenuController implements Initializable {
     @FXML private ComboBox stateBox;
 
     /**
-     * buttons to add/update/delete customers or return to main menu
+     * button to save customers
      */
     @FXML private Button saveCustomerButton;
+    /**
+     * button to load customer data into input fields
+     */
     @FXML private Button updateCustomerButton;
+    /**
+     * button to delete a customer
+     */
     @FXML private Button deleteCustomerButton;
+    /**
+     * button to go back to the main screen
+     */
     @FXML private Button backButton;
+    /**
+     * button to clear the screen
+     */
     @FXML private Button clearButton;
-
+    /**
+     * label to show error messages
+     */
     @FXML private Label errorLabel;
-
+    /**
+     * table of customers
+     */
     @FXML private TableView<Customer> customerTable;
+    /**
+     * customer id column in customer table
+     */
     @FXML private TableColumn<Customer, Integer> cidColumn;
+    /**
+     * name column in customer table
+     */
     @FXML private TableColumn<Customer, String> nameColumn;
+    /**
+     * street address column in customer table
+     */
     @FXML private TableColumn<Customer, String> addressColumn;
+    /**
+     * postal column in customer table
+     */
     @FXML private TableColumn<Customer, String> postalColumn;
+    /**
+     * phone column in customer table
+     */
     @FXML private TableColumn<Customer, String> phoneColumn;
+    /**
+     * country column in customer table
+     */
     @FXML private TableColumn<Customer, String> countryColumn;
+    /**
+     * state column in customer table
+     */
     @FXML private TableColumn<Customer, String> stateColumn;
 
     Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);

@@ -1,8 +1,17 @@
 package Model;
 
 public class User {
+    /**
+     * id of this user
+     */
     private Integer userID;
+    /**
+     * username of this user
+     */
     private String userName;
+    /**
+     * password of this user
+     */
     private String password;
 
     /**

@@ -4,12 +4,33 @@ import java.sql.Timestamp;
 import java.time.chrono.ChronoZonedDateTime;
 
 public class Customer {
+    /**
+     * ID of this customer
+     */
     private Integer customerID;
+    /**
+     * Name of this customer
+     */
     private String customerName;
+    /**
+     * Address of this customer
+     */
     private String address;
+    /**
+     * Postal code of this customer
+     */
     private String postalCode;
+    /**
+     * phone number of this customer
+     */
     private String phone;
+    /**
+     * state/province of this customer
+     */
     private String division;
+    /**
+     * country of this customer
+     */
     private String country;
 
     /**

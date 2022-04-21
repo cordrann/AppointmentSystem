@@ -39,7 +39,10 @@ import static java.lang.Integer.parseInt;
 
 public class AppointmentMenuController implements Initializable{
 
-    //auto generated appointment id
+
+    /**
+     * auto generated appointment id
+     */
     @FXML private TextField aidField;
 
     /**
@@ -57,42 +60,129 @@ public class AppointmentMenuController implements Initializable{
      */
     @FXML private TextField locationField;
 
+    /**
+     * Combobox to select customer
+     */
     @FXML private  ComboBox<Customer> customerBox;
 
+    /**
+     * combobox to select user
+     */
     @FXML private ComboBox<User> userBox;
 
-
+    /**
+     * combobox to select contact
+     */
     @FXML private ComboBox<Contact> contactBox;
 
+    /**
+     * combobox to select appointment type
+     */
+    @FXML private ComboBox<String> typeBox;
 
-    @FXML private ComboBox typeBox;
-
+    /**
+     * select date of appointment
+     */
     @FXML private DatePicker datePicker;
 
+    /**
+     * select start time of appointment
+     */
     @FXML private ComboBox<String> startBox;
+
+    /**
+     * select end time of appointment
+     */
     @FXML private ComboBox<String> endBox;
 
-
+    /**
+     * button pushed to save
+     */
     @FXML private Button saveButton;
+
+    /**
+     * button pushed to load data into fields
+     */
     @FXML private Button updateButton;
+
+    /**
+     * button pushed to delete an appointment
+     */
     @FXML private Button deleteButton;
+
+    /**
+     * button pushed to go back to main screen
+     */
     @FXML private Button backButton;
+
+    /**
+     * button pushed to clear input
+     */
     @FXML private Button clearButton;
 
+    /**
+     * label to display errors
+     */
     @FXML private Label errorLabel;
 
+    /**
+     * table of appointments
+     */
     @FXML private TableView<Appointment> appointmentTable;
+
+    /**
+     * appointment id column
+     */
     @FXML private TableColumn<Appointment, Integer> aidColumn;
+
+    /**
+     * appointment title column
+     */
     @FXML private TableColumn<Appointment, String> titleColumn;
+
+    /**
+     * appointment description column
+     */
     @FXML private TableColumn<Appointment, String> descriptionColumn;
+
+    /**
+     * appointment location column
+     */
     @FXML private TableColumn<Appointment, String> locationColumn;
+
+    /**
+     * appointment contact column
+     */
     @FXML private TableColumn<Appointment, String> contactColumn;
+
+    /**
+     * appointment type column
+     */
     @FXML private TableColumn<Appointment, String> typeColumn;
+
+    /**
+     * appointment start column
+     */
     @FXML private TableColumn<Appointment, LocalTime> startColumn;
+
+    /**
+     * appointment end column
+     */
     @FXML private TableColumn<Appointment, LocalTime> endColumn;
+
+    /**
+     * appointment customer id column
+     */
     @FXML private TableColumn<Appointment, Integer> cidColumn;
+
+    /**
+     * appointment user id column
+     */
     @FXML private TableColumn<Appointment, Integer> uidColumn;
 
+    /**
+     * format date/times of display in combo boxes
+     */
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm   MM/dd/yyyy  VV");
 
     Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
@@ -255,7 +345,7 @@ public class AppointmentMenuController implements Initializable{
 
     /**
      *
-     * @param Clear the input fields when the clear button is clicked
+     * Clear the input fields when the clear button is clicked
      */
     @FXML private void clearButtonClick(ActionEvent event) {
         clear();

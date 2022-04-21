@@ -24,7 +24,9 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class MainMenuController  {
-
+    /**
+     * label displaying currently logged-in user
+     */
     @FXML Label currentUser;
     /**
      * go to the customer menu

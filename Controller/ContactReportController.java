@@ -29,14 +29,41 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class ContactReportController implements Initializable {
+    /**
+     * box to select a contact
+     */
     @FXML private ComboBox<Contact> contactBox;
+    /**
+     * table to show selected contacts appointments
+     */
     @FXML private TableView<Appointment> appointmentTable;
+    /**
+     * appointment id column in appointment table
+     */
     @FXML private TableColumn<Appointment, Integer> aidColumn;
+    /**
+     * title column in appointment table
+     */
     @FXML private TableColumn<Appointment, String> titleColumn;
+    /**
+     * type column in appointment table
+     */
     @FXML private TableColumn<Appointment, String> typeColumn;
+    /**
+     * description column in appointment table
+     */
     @FXML private TableColumn<Appointment, String> descriptionColumn;
+    /**
+     * start column in appointment table
+     */
     @FXML private TableColumn<Appointment, LocalTime> startColumn;
+    /**
+     * end column in appointment table
+     */
     @FXML private TableColumn<Appointment, LocalTime> endColumn;
+    /**
+     * customer id column in appointment table
+     */
     @FXML private TableColumn<Appointment, Integer> cidColumn;
 
     ObservableList<Appointment> allAppointments = AppointmentDB.getAllAppointments();
