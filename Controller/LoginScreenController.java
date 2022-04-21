@@ -15,9 +15,10 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.ResourceBundle;
@@ -46,6 +47,15 @@ public class LoginScreenController implements Initializable{
 
 
 
+
+
+    private void printToFile(String output) throws IOException {
+        File outputFile = new File("../AndrewStoweAppointmentSystem/login_activity.txt");
+        PrintWriter loginWriter = new PrintWriter(new FileWriter(outputFile, true));
+        loginWriter.println(output);
+        loginWriter.close();
+    }
+
     /**
      * attempt to log in when this button is pressed
      * @param event when the login button is clicked
@@ -61,25 +71,48 @@ public class LoginScreenController implements Initializable{
 
        Locale currentLocale = Locale.getDefault();
 
+
+
+
+
        ResourceBundle errorLang = ResourceBundle.getBundle("Controller/LoginScreenBundle", currentLocale);
 
        //Check if the username or password is empty and print error if so
        if(uName.isEmpty() || pword.isEmpty()){
            loginError.setText(errorLang.getString("badInputKey"));
+           if(uName.isEmpty() == false){
+
+                printToFile(uName + " attempted and failed to login without a password at " +
+                        ZonedDateTime.now().withZoneSameInstant(ZoneId.of("UTC")) + "\n");
+
+           }
+           else{
+               printToFile("Unknown user attempted and failed to login without a username at " +
+                       ZonedDateTime.now().withZoneSameInstant(ZoneId.of("UTC")) + "\n");
+
+
+           }
+
        }
        //if both username and password are present attempt to validate with database
        else{
 
            //if username or password are invalid print error indicating so
           try {
-              boolean valid = LoginDB.loginCredentials(uName, pword);
               if (LoginDB.loginCredentials(uName, pword) == false) {
                   loginError.setText(errorLang.getString("falseLoginKey"));
+                  printToFile(uName+" failed to login at " +
+                          ZonedDateTime.now().withZoneSameInstant(ZoneId.of("UTC")) + "\n");
               }
 
               //if username and password are valid allow user to proceed to next screen
               else {
+
+                  printToFile(uName+" successfully logged in at " +
+                          ZonedDateTime.now().withZoneSameInstant(ZoneId.of("UTC")) + "\n");
+
                   Integer userID = LoginDB.getUserID(uName, pword);
+
 
                   FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MainMenu.FXML"));
                   Parent mainMenuParent = loader.load();

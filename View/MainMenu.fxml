@@ -39,7 +39,7 @@
          </font>
       </Label>
     <Button layoutX="100.0" layoutY="264.0" mnemonicParsing="false" onAction="#reportAppointmentClick" prefHeight="25.0" prefWidth="206.0" text="Appointments by type/month" />
-      <Button layoutX="97.0" layoutY="300.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="212.0" text="Customers by Country" />
+      <Button layoutX="97.0" layoutY="300.0" mnemonicParsing="false" onAction="#reportCustomerClick" prefHeight="25.0" prefWidth="212.0" text="Customers by Country" />
       <Button layoutX="322.0" layoutY="264.0" mnemonicParsing="false" onAction="#reportContactClick" prefHeight="25.0" prefWidth="218.0" text="Contact Schedules" />
     </children>
 

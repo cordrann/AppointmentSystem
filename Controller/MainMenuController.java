@@ -83,6 +83,14 @@ public class MainMenuController  {
         app_stage.setScene(appointmentReportScene);
         app_stage.show();
     }
+    @FXML private void reportCustomerClick(ActionEvent event) throws IOException{
+        Parent customerReportParent;
+        customerReportParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/CustomerReport.FXML")));
+        Scene customerReportScene = new Scene(customerReportParent);
+        Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        app_stage.setScene(customerReportScene);
+        app_stage.show();
+    }
 
     Integer thisUserID;
 

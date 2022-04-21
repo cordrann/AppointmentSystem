@@ -57,6 +57,7 @@ public class ContactReportController implements Initializable {
 
                 appointmentTable.setItems(filteredAppointments);
             }
+            else{appointmentTable.setItems(null);}
         }
 
     }
